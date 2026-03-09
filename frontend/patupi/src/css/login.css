@@ -1,0 +1,131 @@
+/* src/css/login.css */
+
+/* 1. Global Reset & Theme */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+body {
+  background-color: #1a1a15; /* Deep Charcoal */
+  color: #ffffff;
+  min-height: 100vh;
+}
+
+/* 2. Login Page: Split Screen */
+.split-screen {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+}
+
+.image-pane {
+  flex: 1;
+  background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.8)), 
+              url('https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=2070&auto=format&fit=crop'); 
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 60px;
+}
+
+.form-pane {
+  width: 480px;
+  background-color: #1a1a15;
+  padding: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* 3. Register Page: Centered Card */
+.auth-container-centered {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+.auth-card {
+  background-color: #24241e; 
+  width: 100%;
+  max-width: 450px;
+  padding: 40px;
+  border-radius: 12px;
+  border: 1px solid #33332d;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+}
+
+/* 4. Shared Elements */
+.brand-logo {
+  background-color: #d4af37;
+  color: #1a1a15;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+h1 { font-size: 2rem; margin-bottom: 8px; font-weight: 700; }
+.subtitle { color: #a1a19a; margin-bottom: 30px; font-size: 0.95rem; }
+
+.form-group { margin-bottom: 20px; text-align: left; }
+.form-group label {
+  display: block;
+  font-size: 0.85rem;
+  color: #d1d1ca;
+  margin-bottom: 8px;
+}
+
+.input-wrapper input {
+  width: 100%;
+  background-color: #1d1d17;
+  border: 1px solid #3d3d37;
+  border-radius: 8px;
+  padding: 14px;
+  color: white;
+  font-size: 1rem;
+  outline: none;
+}
+
+.input-wrapper input:focus { border-color: #d4af37; }
+
+.gold-btn {
+  width: 100%;
+  background-color: #d4af37;
+  color: #1a1a15;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.gold-btn:hover { background-color: #b8962e; }
+
+.social-buttons { display: flex; gap: 12px; margin-top: 24px; }
+.social-btn {
+  flex: 1;
+  background-color: #24241e;
+  border: 1px solid #33332d;
+  color: white;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.divider { border-top: 1px solid #333; margin: 30px 0; position: relative; }
+.divider span { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: #1a1a15; padding: 0 10px; color: #444; font-size: 0.8rem; }
