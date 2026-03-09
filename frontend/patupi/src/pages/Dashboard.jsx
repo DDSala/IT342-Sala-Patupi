@@ -4,7 +4,6 @@ import '../css/dashboard.css';
 const Dashboard = () => {
   return (
     <div className="dashboard-wrapper">
-      {/* Sidebar Navigation */}
       <aside className="sidebar">
         <div className="sidebar-header">
           <div className="brand-logo">✂</div>
@@ -26,7 +25,6 @@ const Dashboard = () => {
         <button className="book-now-btn">+ Book Now</button>
       </aside>
 
-      {/* Main Content Area */}
       <main className="main-content">
         <header className="content-header">
           <div className="header-stats">
@@ -39,7 +37,6 @@ const Dashboard = () => {
           </div>
         </header>
 
-        {/* Active Ticket Hero */}
         <section className="active-ticket-section">
           <h3>🎫 Active Ticket</h3>
           <div className="ticket-card">
@@ -66,9 +63,9 @@ const Dashboard = () => {
           </div>
         </section>
 
-        {/* Bottom Grid: Appointments & History */}
+
         <div className="dashboard-grid">
-          {/* Upcoming Appointments */}
+
           <div className="grid-card">
             <div className="card-header">
               <h4>📅 Upcoming Appointments</h4>
@@ -92,7 +89,7 @@ const Dashboard = () => {
             </table>
           </div>
 
-          {/* Service History */}
+
           <div className="grid-card">
             <div className="card-header">
               <h4>📋 Service History</h4>
