@@ -1,62 +1,138 @@
-import React, { useEffect, useState } from 'react';
-import { supabase } from '../supabaseClient';
-import { useNavigate } from 'react-router-dom';
+import React from 'react';
+import '../css/dashboard.css';
 
 const Dashboard = () => {
-    const [user, setUser] = useState(null);
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        // Check if a user is actually logged in
-        const getUser = async () => {
-            const { data: { user } } = await supabase.auth.getUser();
-            if (!user) {
-                navigate('/login'); // Redirect to login if no session found
-            } else {
-                setUser(user);
-            }
-        };
-        getUser();
-    }, [navigate]);
-
-    const handleLogout = async () => {
-        await supabase.auth.signOut();
-        navigate('/login');
-    };
-
-    if (!user) return <div className="bg-charcoal min-h-screen"></div>;
-
-    return (
-        <div className="min-h-screen bg-charcoal text-white p-8">
-            <nav className="flex justify-between items-center mb-12 border-b border-gray-800 pb-6">
-                <h1 className="text-2xl font-bold text-gold">Patupi Dashboard</h1>
-                <button 
-                    onClick={handleLogout}
-                    className="text-sm bg-red-900/20 text-red-400 px-4 py-2 rounded-lg border border-red-900/50 hover:bg-red-900/40 transition-all"
-                >
-                    Logout
-                </button>
-            </nav>
-
-            <main className="max-w-4xl mx-auto">
-                <div className="bg-[#2a2a22] p-8 rounded-2xl border border-gray-800 shadow-xl">
-                    <h2 className="text-3xl font-semibold mb-4">Welcome back, {user.email}!</h2>
-                    <p className="text-gray-400 mb-8">Ready for your next premium grooming session?</p>
-                    
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div className="p-6 bg-inputBg rounded-xl border border-gray-700 hover:border-gold cursor-pointer transition-all">
-                            <h3 className="text-gold font-bold mb-2">My Appointments</h3>
-                            <p className="text-sm text-gray-500">View your upcoming barber schedules.</p>
-                        </div>
-                        <div className="p-6 bg-inputBg rounded-xl border border-gray-700 hover:border-gold cursor-pointer transition-all">
-                            <h3 className="text-gold font-bold mb-2">Book Now</h3>
-                            <p className="text-sm text-gray-500">Find a barber and schedule a cut.</p>
-                        </div>
-                    </div>
-                </div>
-            </main>
+  return (
+    <div className="dashboard-wrapper">
+      {/* Sidebar Navigation */}
+      <aside className="sidebar">
+        <div className="sidebar-header">
+          <div className="brand-logo">✂</div>
+          <div className="brand-text">
+            <span className="brand-name">Patupi</span>
+            <span className="brand-sub">DASHBOARD</span>
+          </div>
         </div>
-    );
+
+        <nav className="sidebar-nav">
+          <a href="/dashboard" className="nav-item active">
+            <span className="icon">⊞</span> Dashboard
+          </a>
+          <a href="/appointments" className="nav-item">
+            <span className="icon">📅</span> Appointments
+          </a>
+        </nav>
+
+        <button className="book-now-btn">+ Book Now</button>
+      </aside>
+
+      {/* Main Content Area */}
+      <main className="main-content">
+        <header className="content-header">
+          <div className="header-stats">
+            <span className="weather">☀️ 28°C</span>
+            <span className="notifications">🔔</span>
+          </div>
+          <div className="user-profile">
+            <span className="user-name">Wally</span>
+            <div className="user-avatar">W</div>
+          </div>
+        </header>
+
+        {/* Active Ticket Hero */}
+        <section className="active-ticket-section">
+          <h3>🎫 Active Ticket</h3>
+          <div className="ticket-card">
+            <div className="ticket-image">
+              <img src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?q=80&w=2074&auto=format&fit=crop" alt="Barber Shop" />
+            </div>
+            <div className="ticket-info">
+              <div className="status-badge">● Status: Assigned</div>
+              <h2>Full Service Grooming</h2>
+              <p className="barber-assigned">Barber: <span className="gold-text">Leo the Legend</span></p>
+              
+              <div className="ticket-footer">
+                <div className="location-info">
+                  <span>📅 Today, Oct 24</span>
+                  <span>📍 Downtown Hub</span>
+                </div>
+                <button className="cancel-btn">⊗ Cancel Appointment</button>
+              </div>
+            </div>
+            <div className="estimated-start">
+              <span className="label">ESTIMATED START</span>
+              <span className="time">14:30</span>
+            </div>
+          </div>
+        </section>
+
+        {/* Bottom Grid: Appointments & History */}
+        <div className="dashboard-grid">
+          {/* Upcoming Appointments */}
+          <div className="grid-card">
+            <div className="card-header">
+              <h4>📅 Upcoming Appointments</h4>
+              <button className="view-all">View All</button>
+            </div>
+            <table className="data-table">
+              <thead>
+                <tr>
+                  <th>DATE</th>
+                  <th>TIME</th>
+                  <th>BARBER</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Oct 24, 2023</td>
+                  <td>02:30 PM</td>
+                  <td><div className="table-user"><span className="avatar-sm">LL</span> Leo Legend</div></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          {/* Service History */}
+          <div className="grid-card">
+            <div className="card-header">
+              <h4>📋 Service History</h4>
+              <button className="view-all">Download PDF</button>
+            </div>
+            <table className="data-table">
+              <thead>
+                <tr>
+                  <th>DATE</th>
+                  <th>STYLE</th>
+                  <th>RATING</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Oct 10, 2023</td>
+                  <td>Skin Fade</td>
+                  <td className="gold-text">★★★★★</td>
+                </tr>
+                <tr>
+                  <td>Sep 24, 2023</td>
+                  <td>Classic Taper</td>
+                  <td className="gold-text">★★★★★</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <footer className="dashboard-footer">
+          <p>© 2023 Patupi Premium Barbering. All rights reserved.</p>
+          <div className="footer-links">
+            <a href="#">PRIVACY POLICY</a>
+            <a href="#">TERMS OF SERVICE</a>
+            <a href="#">SUPPORT</a>
+          </div>
+        </footer>
+      </main>
+    </div>
+  );
 };
 
 export default Dashboard;
