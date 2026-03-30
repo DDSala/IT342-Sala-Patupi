@@ -17,6 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp">
 
+
             <ImageButton
                 android:id="@+id/btnBack"
                 android:layout_width="48dp"
@@ -26,6 +27,7 @@
                 android:src="@drawable/ic_back"
                 android:contentDescription="Go Back"
                 app:tint="@color/white" />
+
 
             <TextView
                 android:layout_width="wrap_content"
@@ -74,6 +76,7 @@
                 android:inputType="textPersonName" />
         </com.google.android.material.textfield.TextInputLayout>
 
+
         <TextView style="@style/PatupiLabel" android:text="Email Address" />
         <com.google.android.material.textfield.TextInputLayout
             style="@style/PatupiInputBox"
@@ -87,6 +90,7 @@
                 android:inputType="textEmailAddress" />
         </com.google.android.material.textfield.TextInputLayout>
 
+
         <TextView style="@style/PatupiLabel" android:text="Location" />
         <com.google.android.material.textfield.TextInputLayout
             style="@style/PatupiInputBox"
@@ -99,6 +103,7 @@
                 android:hint="Cebu City"
                 android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
+
 
         <TextView style="@style/PatupiLabel" android:text="Password" />
         <com.google.android.material.textfield.TextInputLayout
@@ -114,6 +119,7 @@
                 android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
 
+
         <TextView style="@style/PatupiLabel" android:text="Confirm Password" />
         <com.google.android.material.textfield.TextInputLayout
             style="@style/PatupiInputBox"
@@ -127,6 +133,7 @@
                 android:textColor="@color/white"
                 android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
+
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnRegister"

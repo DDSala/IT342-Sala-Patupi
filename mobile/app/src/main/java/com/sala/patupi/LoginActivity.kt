@@ -30,13 +30,13 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        // Initialize Views - IDs match activity_login.xml
+
         etEmail = findViewById(R.id.etLoginEmail)
         etPassword = findViewById(R.id.etLoginPassword)
         btnLogin = findViewById(R.id.btnLogin)
         tvSignUp = findViewById(R.id.tvSignUp)
 
-        // Make "Sign up" text gold and bold
+
         setupSignUpSpan()
 
         btnLogin.setOnClickListener { loginUser() }
@@ -47,6 +47,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+
     private fun setupSignUpSpan() {
         val text = "Don't have an account? Sign up"
         val ss = SpannableString(text)
@@ -56,9 +57,9 @@ class LoginActivity : AppCompatActivity() {
             val end = start + "Sign up".length
             val goldColor = ContextCompat.getColor(this, R.color.patupi_gold)
 
-            // Apply Gold Color
+
             ss.setSpan(ForegroundColorSpan(goldColor), start, end, 0)
-            // Apply Bold Style
+
             ss.setSpan(StyleSpan(Typeface.BOLD), start, end, 0)
         }
         tvSignUp.text = ss
@@ -80,7 +81,7 @@ class LoginActivity : AppCompatActivity() {
 
         val request = JsonObjectRequest(Request.Method.POST, loginUrl, loginData,
             { response ->
-                // SUCCESS POPUP
+
                 showSuccessDialog(response)
             },
             { error ->
@@ -103,11 +104,11 @@ class LoginActivity : AppCompatActivity() {
         MaterialAlertDialogBuilder(this)
             .setTitle("Login Successful")
             .setMessage("Welcome back to Patupi, $name!")
-            .setPositiveButton("Go to Dashboard") { _, _ ->
+            .setPositiveButton("Let's Go") { _, _ ->
                 val intent = Intent(this, DashboardActivity::class.java)
                 intent.putExtra("USER_NAME", name)
                 startActivity(intent)
-                finish() // Prevents user from going back to login screen
+                finish()
             }
             .setCancelable(false)
             .show()

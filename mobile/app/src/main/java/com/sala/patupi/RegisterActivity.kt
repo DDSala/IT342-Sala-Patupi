@@ -42,7 +42,6 @@ class RegisterActivity : AppCompatActivity() {
         btnRegister = findViewById(R.id.btnRegister)
         tvLoginNow = findViewById(R.id.tvLogin)
 
-        // The critical fix: ensuring we find the ImageButton correctly
         val btnBack = findViewById<ImageButton>(R.id.btnBack)
         btnBack.setOnClickListener { finish() }
 
@@ -51,6 +50,7 @@ class RegisterActivity : AppCompatActivity() {
         btnRegister.setOnClickListener { registerUser() }
         tvLoginNow.setOnClickListener { finish() }
     }
+
 
     private fun setupLoginNowSpan() {
         val text = "Already have an account? Login Now"
@@ -64,6 +64,7 @@ class RegisterActivity : AppCompatActivity() {
         }
         tvLoginNow.text = ss
     }
+
 
     private fun registerUser() {
         val name = etFullName.text.toString().trim()

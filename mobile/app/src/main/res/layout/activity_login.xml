@@ -91,6 +91,6 @@
             android:text="Don't have an account? Sign up"
             android:textColor="@color/white"
             android:gravity="center" />
-
     </LinearLayout>
+
 </ScrollView>
