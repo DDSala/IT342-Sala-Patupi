@@ -14,15 +14,19 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="16dp">
+
             <ImageButton
                 android:id="@+id/btnBack"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
+                android:padding="12dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:src="@drawable/ic_back"
+                android:contentDescription="Go Back"
                 app:tint="@color/white" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -36,7 +40,7 @@
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/ivHeader"
             android:layout_width="match_parent"
-            android:layout_height="180dp"
+            android:layout_height="160dp"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_topimage"
             app:shapeAppearanceOverlay="@style/RoundedCornersImage" />
@@ -54,7 +58,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
-            android:text="Sign up to book your next premium haircut"
+            android:text="Premium grooming is just a few taps away."
             android:textColor="@color/gray_text" />
 
         <TextView style="@style/PatupiLabel" android:text="Full Name" />
@@ -66,8 +70,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
-                android:hint="John Doe"
-                android:textColorHint="@color/gray_hint"
+                android:hint="Juan Dela Cruz"
                 android:inputType="textPersonName" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -80,8 +83,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
-                android:hint="john@example.com"
-                android:textColorHint="@color/gray_hint"
+                android:hint="juan@patupi.com"
                 android:inputType="textEmailAddress" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -94,8 +96,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
-                android:hint="Cebu City, PH"
-                android:textColorHint="@color/gray_hint"
+                android:hint="Cebu City"
                 android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -110,8 +111,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
-                android:hint="........"
-                android:textColorHint="@color/gray_hint"
                 android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -126,8 +125,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
-                android:hint="........"
-                android:textColorHint="@color/gray_hint"
                 android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -135,7 +132,8 @@
             android:id="@+id/btnRegister"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:text="Register"
+            android:layout_marginTop="16dp"
+            android:text="Sign Up"
             android:textAllCaps="false"
             android:textColor="@color/patupi_bg"
             android:textSize="18sp"
@@ -148,7 +146,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="24dp"
             android:layout_marginBottom="32dp"
             android:text="Already have an account? Login"
             android:textColor="@color/gray_text" />
