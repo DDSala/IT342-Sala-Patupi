@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">patupi</string>
+    <string name="signup_text">Don\'t have an account? <font color="#D4AF37">Sign up</font></string>
+</resources>

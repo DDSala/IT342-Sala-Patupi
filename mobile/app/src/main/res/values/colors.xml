@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="patupi_bg">#12110F</color>
+    <color name="patupi_input_bg">#1E2129</color>
+    <color name="patupi_input_stroke">#2D323E</color>
+
+    <color name="patupi_gold">#D4AF37</color>
+    <color name="patupi_gold_dark">#B8860B</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="gray_text">#9E9E9E</color>
+    <color name="gray_hint">#BDBDBD</color> <color name="black">#000000</color>
+</resources>

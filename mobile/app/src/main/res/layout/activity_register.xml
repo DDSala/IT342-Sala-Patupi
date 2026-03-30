@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/patupi_bg"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginBottom="16dp">
+            <ImageButton
+                android:id="@+id/btnBack"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_back"
+                app:tint="@color/white" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="Create Account"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivHeader"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_topimage"
+            app:shapeAppearanceOverlay="@style/RoundedCornersImage" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Join Patupi"
+            android:textColor="@color/white"
+            android:textSize="32sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:text="Sign up to book your next premium haircut"
+            android:textColor="@color/gray_text" />
+
+        <TextView style="@style/PatupiLabel" android:text="Full Name" />
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/PatupiInputBox"
+            app:startIconDrawable="@drawable/ic_person">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etFullName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:hint="John Doe"
+                android:textColorHint="@color/gray_hint"
+                android:inputType="textPersonName" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView style="@style/PatupiLabel" android:text="Email Address" />
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/PatupiInputBox"
+            app:startIconDrawable="@drawable/ic_email">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:hint="john@example.com"
+                android:textColorHint="@color/gray_hint"
+                android:inputType="textEmailAddress" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView style="@style/PatupiLabel" android:text="Location" />
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/PatupiInputBox"
+            app:startIconDrawable="@drawable/ic_location">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:hint="Cebu City, PH"
+                android:textColorHint="@color/gray_hint"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView style="@style/PatupiLabel" android:text="Password" />
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/PatupiInputBox"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/gray_text"
+            app:startIconDrawable="@drawable/ic_lock">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:hint="........"
+                android:textColorHint="@color/gray_hint"
+                android:inputType="textPassword" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView style="@style/PatupiLabel" android:text="Confirm Password" />
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/PatupiInputBox"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/gray_text"
+            app:startIconDrawable="@drawable/ic_refresh">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etConfirmPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:hint="........"
+                android:textColorHint="@color/gray_hint"
+                android:inputType="textPassword" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnRegister"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="Register"
+            android:textAllCaps="false"
+            android:textColor="@color/patupi_bg"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:backgroundTint="@color/patupi_gold"
+            app:cornerRadius="12dp" />
+
+        <TextView
+            android:id="@+id/tvLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="32dp"
+            android:text="Already have an account? Login"
+            android:textColor="@color/gray_text" />
+    </LinearLayout>
+</ScrollView>
