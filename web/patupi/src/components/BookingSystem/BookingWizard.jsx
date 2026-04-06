@@ -3,7 +3,7 @@ import axios from 'axios';
 import Step1Reference from './Step1Reference'; 
 import Step2Schedule from './Step2Schedule';
 import Step3Confirm from './Step3Confirm';
-import BookingFinal from './BookingFinal'; // Import your new final screen
+import BookingFinal from './BookingFinal';
 import './Booking.css';
 
 const BookingWizard = ({ isOpen, onClose }) => {
@@ -19,10 +19,10 @@ const BookingWizard = ({ isOpen, onClose }) => {
         displayTime: ''
     });
 
-// Change this section in BookingWizard.jsx
+
 useEffect(() => {
     if (isOpen) {
-        // FIX: Change localStorage to sessionStorage
+    
         const loggedInUser = sessionStorage.getItem('user'); 
         if (loggedInUser) {
             setUser(JSON.parse(loggedInUser));
@@ -46,12 +46,12 @@ useEffect(() => {
     };
 
     const handleBookingSuccess = () => {
-        // This is called after Step 3 successfully updates the DB
+      
         setStep(4); 
     };
 
     const handleCancel = async () => {
-        // If they cancel after Step 1, delete the draft so it doesn't show in DB
+      
         if (appointmentId && step < 4) {
             try {
                 await axios.delete(`http://localhost:8080/api/appointments/${appointmentId}`);
@@ -80,7 +80,7 @@ useEffect(() => {
         <div className="modal-overlay">
             <div className={`booking-card glass-panel ${step === 4 ? 'final-view' : ''}`}>
                 
-                {/* Hide sidebar on the final success screen for a clean look */}
+                {/* Hide sidebar on the final success screen*/}
                 {step < 4 && (
                     <div className="wizard-sidebar">
                         <div className="sidebar-header">

@@ -7,7 +7,7 @@ const Step2Schedule = ({ onNext, onBack }) => {
     const [startDate, setStartDate] = useState(null);
     const [selectedTime, setSelectedTime] = useState('');
 
-    // Updated slots based on 30-60 min intervals
+ 
     const timeSlots = [
         "09:00 AM", "10:00 AM", "11:00 AM", 
         "01:00 PM", "02:00 PM", "03:00 PM", 
@@ -23,7 +23,7 @@ const Step2Schedule = ({ onNext, onBack }) => {
         const mm = String(startDate.getMonth() + 1).padStart(2, '0');
         const dd = String(startDate.getDate()).padStart(2, '0');
         
-        // 12h to 24h conversion
+  
         const [time, modifier] = selectedTime.split(' ');
         let [hours, minutes] = time.split(':');
         let hoursInt = parseInt(hours, 10);

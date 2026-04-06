@@ -5,8 +5,8 @@ import Register from './pages/Register';
 import Dashboard from './pages/Dashboard'; 
 import Profile from './pages/Profile';
 import AdminDashboard from './pages/AdminDashboard'; 
-import AdminCustomer from './pages/AdminCustomer'; // NEW IMPORT
-import AdminHistory from './pages/AdminHistory';   // NEW IMPORT
+import AdminCustomer from './pages/AdminCustomer'; 
+import AdminHistory from './pages/AdminHistory';   
 import ProtectedRoute from './components/ProtectedRoute';
 import Barbers from './pages/Barbers';
 

@@ -30,13 +30,12 @@ public class AppointmentController {
     @Autowired
     private AppointmentService appointmentService;
 
-    // Admin Dashboard Fetch
-@GetMapping
-public ResponseEntity<?> getAllAppointments() {
-    return ResponseEntity.ok(appointmentRepository.findAll());
-}
 
-    // Step 1: JSON only, no files
+    @GetMapping
+    public ResponseEntity<?> getAllAppointments() {
+        return ResponseEntity.ok(appointmentRepository.findAll());
+    }
+
     @PostMapping("/step1")
     public ResponseEntity<?> startBooking(@RequestBody Map<String, Object> payload) {
         try {
@@ -91,11 +90,9 @@ public ResponseEntity<?> getAllAppointments() {
         return ResponseEntity.ok(appointmentService.getCustomerAppointmentsWithNames(id));
     }
 
-    // ADD THIS for the History page
+    
     @GetMapping("/all")
     public ResponseEntity<?> getAllForAdmin() {
-    // We use the Service here because it converts the data into the DTO 
-    // that includes customerName, barberName, and service name.
         return ResponseEntity.ok(appointmentService.getAllAppointmentsForAdmin());
     }
 
@@ -110,7 +107,7 @@ public ResponseEntity<?> getAllAppointments() {
     @PutMapping("/{id}/cancel")
     public ResponseEntity<?> cancelAppointment(@PathVariable Long id, @RequestParam Long customerId) {
     return appointmentRepository.findById(id).map(appointment -> {
-        // Updated to use getUserId() instead of getId()
+
         if (appointment.getUser() == null || !appointment.getUser().getUserId().equals(customerId)) {
             return ResponseEntity.status(403).body(Map.of("error", "Unauthorized cancellation"));
         }

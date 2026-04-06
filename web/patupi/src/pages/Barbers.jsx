@@ -11,7 +11,7 @@ const Barbers = () => {
     const [showModal, setShowModal] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
     const [currentBarberId, setCurrentBarberId] = useState(null);
-    const [showLogoutModal, setShowLogoutModal] = useState(false); // State for the Sign Out modal
+    const [showLogoutModal, setShowLogoutModal] = useState(false); 
     const [formData, setFormData] = useState({
         firstName: '', lastName: '', email: '', address: ''
     });
@@ -210,7 +210,7 @@ const Barbers = () => {
                 </div>
             )}
 
-            {/* PREMIUM SIGN OUT MODAL */}
+            {/* SIGN OUT MODAL */}
             {showLogoutModal && (
                 <div className="modern-modal-overlay">
                     <div className="modern-modal-container">

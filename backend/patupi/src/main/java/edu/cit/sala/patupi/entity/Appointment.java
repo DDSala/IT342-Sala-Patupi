@@ -47,7 +47,7 @@ public class Appointment {
     @Column(name = "created_at", updatable = false)
     private LocalDateTime created_at = LocalDateTime.now();
 
-    // Helpers for the Admin Dashboard to show names without extra API calls
+  
     @JsonProperty("customerName")
     public String getCustomerName() {
         return user != null ? user.getFullName() : "Unknown";
@@ -58,7 +58,7 @@ public class Appointment {
         return user != null ? user.getUserId() : null;
     }
 
-    // Standard Getters/Setters
+
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     public User getUser() { return user; }

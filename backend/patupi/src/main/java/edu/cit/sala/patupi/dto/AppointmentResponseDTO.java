@@ -11,12 +11,12 @@ public class AppointmentResponseDTO {
     private String description;
     private LocalDateTime scheduledAt;
     private String status;
-    private String referencePhoto; // Match the frontend 'item.referencePhoto'
+    private String referencePhoto; 
 
-    // Constructors
+
     public AppointmentResponseDTO() {}
 
-    // Getters and Setters
+
     public Long getAppointmentId() { return appointmentId; }
     public void setAppointmentId(Long appointmentId) { this.appointmentId = appointmentId; }
 

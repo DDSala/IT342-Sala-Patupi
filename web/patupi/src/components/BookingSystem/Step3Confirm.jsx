@@ -14,11 +14,11 @@ const Step3Confirm = ({ appointmentId, data, onBack, onComplete }) => {
         setLoading(true);
 try {
     const payload = {
-    serviceId: data.service?.service_id || null, // Matches @JsonProperty("serviceId")
-    scheduledAt: `${data.date}T${data.time}`     // Matches @JsonProperty("scheduledAt")
+    serviceId: data.service?.service_id || null, 
+    scheduledAt: `${data.date}T${data.time}`     
 };
 
-    // Validation
+  
     if (!payload.serviceId) {
         alert("Please go back and select a service.");
         setLoading(false);

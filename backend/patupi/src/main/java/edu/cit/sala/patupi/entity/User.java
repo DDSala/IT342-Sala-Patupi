@@ -43,12 +43,12 @@ public class User {
     @JsonManagedReference
     private BarberProfile barberProfile;
 
-    // SAVAGE MODE: Delete all appointments when this user is deleted
+  
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore // Prevents infinite recursion in JSON
+    @JsonIgnore
     private List<Appointment> appointments;
 
-    // Getters and Setters
+
     public Long getUserId() { return userId; }
     public void setUserId(Long userId) { this.userId = userId; }
     public String getFullName() { return fullName; }

@@ -2,20 +2,20 @@
 .profile-container {
   display: flex;
   min-height: 100vh;
-  background-color: #0b0b08; /* Deep black bg */
+  background-color: #0b0b08; 
   color: #ffffff;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* --- SIDEBAR --- */
 .sidebar {
-  width: 280px;         /* Choose a fixed width (e.g., 280px) */
+  width: 280px;         
   min-width: 280px;
   height: 100vh;
   position: fixed;
   left: 0;
   top: 0;
-  padding: 2rem;       /* Ensure internal spacing is identical */
+  padding: 2rem;       
   box-sizing: border-box; 
   display: flex;
   flex-direction: column;
@@ -33,7 +33,7 @@
   background-color: #d4af37; /* Gold */
   width: 38px;
   height: 38px;
-  min-width: 38px; /* FIX: Prevents logo stretching */
+  min-width: 38px; 
   border-radius: 10px;
   display: flex;
   align-items: center;
@@ -92,7 +92,7 @@
 
 /* --- MAIN CONTENT & HEADER --- */
 .profile-main {
-  margin-left: 280px;  /* MUST match sidebar width */
+  margin-left: 280px;  
   width: calc(100% - 280px);
   padding: 2rem;
   box-sizing: border-box;
@@ -153,8 +153,8 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.6); /* Dim the background */
-  backdrop-filter: blur(4px); /* Adds a modern blur effect */
+  background: rgba(0, 0, 0, 0.6); 
+  backdrop-filter: blur(4px); 
   display: flex;
   justify-content: center;
   align-items: center;
@@ -290,7 +290,7 @@
 
 /* Updated Save button for success mode */
 .btn-edit-profile.save-mode {
-  background-color: #d4af37; /* Match theme gold instead of generic green */
+  background-color: #d4af37; 
   color: #000;
   min-width: 140px;
   display: flex;

@@ -16,9 +16,6 @@ public class ServiceController {
     @Autowired
     private ServiceRepository serviceRepository;
 
-    /**
-     * Fetches all available services for the Step 1 selection grid.
-     */
     @GetMapping
     public ResponseEntity<List<Service>> getMenu() {
         List<Service> services = serviceRepository.findAll();
@@ -28,10 +25,6 @@ public class ServiceController {
         return ResponseEntity.ok(services);
     }
 
-    /**
-     * Fetches a single service by ID. 
-     * Useful if you need to re-verify price/details in Step 3.
-     */
     @GetMapping("/{id}")
     public ResponseEntity<Service> getServiceById(@PathVariable Integer id) {
         return serviceRepository.findById(id)

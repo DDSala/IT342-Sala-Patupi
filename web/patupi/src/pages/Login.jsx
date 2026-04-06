@@ -17,7 +17,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // FIX: Changed localStorage to sessionStorage
+   
     const loggedInUser = sessionStorage.getItem('user');
     if (loggedInUser) {
       const user = JSON.parse(loggedInUser);
@@ -102,7 +102,7 @@ const Login = () => {
     setUserName(nameToDisplay); 
     setIsSuccess(true); 
     
-    // FIX: Changed from localStorage to sessionStorage
+    
     sessionStorage.setItem('user', JSON.stringify(userData));
     
     setTimeout(() => {

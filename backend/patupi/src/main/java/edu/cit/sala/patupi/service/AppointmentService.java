@@ -72,20 +72,20 @@ public class AppointmentService {
         dto.setScheduledAt(app.getScheduled_at());
         dto.setDescription(app.getDescription());
 
-        // Map Customer Name
+
         if (app.getUser() != null) {
             dto.setCustomerName(app.getUser().getFullName());
         } else {
             dto.setCustomerName("Unknown Customer");
         }
 
-        // --- THE FIX: Map Barber Name ---
+    
         if (app.getBarberId() != null) {
             userRepository.findById(app.getBarberId())
                 .ifPresent(b -> dto.setBarberName(b.getFullName()));
         }
 
-        // Map Service Name
+     
         if (app.getService_id() != null && app.getService_id() != 0) {
             serviceRepository.findById(app.getService_id())
                 .ifPresent(s -> dto.setService(s.getName()));

@@ -9,13 +9,13 @@
 
 /* --- SIDEBAR & LOGO FIX --- */
 .sidebar {
-  width: 280px;         /* Choose a fixed width (e.g., 280px) */
+  width: 280px;         
   min-width: 280px;
   height: 100vh;
   position: fixed;
   left: 0;
   top: 0;
-  padding: 2rem;       /* Ensure internal spacing is identical */
+  padding: 2rem;       
   box-sizing: border-box; 
   display: flex;
   flex-direction: column;
@@ -97,7 +97,7 @@
 
 /* --- MAIN CONTENT & HEADER --- */
 .main-content {
-  margin-left: 280px;  /* MUST match sidebar width */
+  margin-left: 280px;  
   width: calc(100% - 280px);
   padding: 2rem;
   box-sizing: border-box;
@@ -240,7 +240,7 @@
 /* The Container */
 .active-ticket-card {
     background: rgba(255, 255, 255, 0.03);
-    border-left: 4px solid #D4AF37; /* The Gold Stripe */
+    border-left: 4px solid #D4AF37; 
     border-radius: 12px;
     padding: 24px;
     margin-bottom: 30px;
@@ -249,7 +249,7 @@
     backdrop-filter: blur(10px);
 }
 
-/* Subtle background pattern (Optional "Patupi" vibe) */
+/* Subtle background pattern */
 .active-ticket-card::before {
     content: '✂️';
     position: absolute;
@@ -536,13 +536,13 @@
 }
 
 .status-cell-dim.cancelled {
-  color: #ff4d4d; /* Red for cancelled */
+  color: #ff4d4d; 
   font-weight: 600;
   font-size: 0.75rem;
 }
 
 .status-cell-dim.completed {
-  color: #4CAF50; /* Green for completed */
+  color: #4CAF50; 
   font-weight: 600;
   font-size: 0.75rem;
 }
@@ -550,10 +550,10 @@
 /* Container for the empty state */
 .ticket-card-empty {
     display: flex;
-    align-items: center;    /* Vertical center */
-    justify-content: center; /* Horizontal center */
+    align-items: center;    
+    justify-content: center; 
     background-color: #1a1a1a;
-    height: 200px;           /* Adjusted height to feel less "empty" */
+    height: 200px;           
     border-radius: 15px;
     border: 1px solid #2a2a2a;
     width: 100%;
@@ -562,16 +562,16 @@
 /* The wrapper inside that handles the text alignment */
 .empty-message-container {
     display: flex;
-    flex-direction: column; /* Stacks text on top of the button */
-    align-items: center;    /* Centers the button under the text */
-    gap: 12px;              /* Adds a nice gap between text and link */
+    flex-direction: column; 
+    align-items: center;    
+    gap: 12px;              
     text-align: center;
 }
 
 .empty-message-container p {
     color: #888;
     font-size: 1.1rem;
-    margin: 0;             /* Remove default margins that cause offset */
+    margin: 0;            
 }
 
 .text-link-gold {

@@ -5,14 +5,13 @@ import './AppointmentDetails.css';
 const AppointmentDetailsModal = ({ isOpen, onClose, appointment, onCancel }) => {
   if (!isOpen || !appointment) return null;
 
-  // 1. IMPROVED DATA MAPPING
-  // Checks all possible fields where the price/name might be stored
+  
   const displayService = appointment.serviceName || appointment.service?.name || "Service Details";
   
-  // Checks totalAmount (from Service class) or fallback base_price
+  
   const rawPrice = appointment.totalAmount || appointment.base_price || 0;
 
-  // Ensures we have the correct ID for the PT-XXXX display
+ 
   const displayId = appointment.appointmentId || appointment.id || 0;
 
   return (

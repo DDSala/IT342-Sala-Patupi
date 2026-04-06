@@ -44,7 +44,7 @@
 
 .modal-header {
     display: flex;
-    justify-content: center; /* Center the title now that X is gone */
+    justify-content: center;
     align-items: center;
     margin-bottom: 24px;
     padding-bottom: 15px;
@@ -67,7 +67,7 @@
     font-weight: 700;
     font-size: 0.9rem;
     text-transform: uppercase;
-    letter-spacing: 2px; /* More "brand" feel */
+    letter-spacing: 2px; 
 }
 
 .close-icon-btn {

@@ -117,7 +117,7 @@ const AdminHistory = () => {
                                 <th>PAID AMOUNT</th>
                                 <th>RATING</th>
                                 <th>STATUS</th>
-                                <th>DATE & TIME</th> {/* Changed Header */}
+                                <th>DATE & TIME</th>
                             </tr>
                         </thead>
                         <tbody>

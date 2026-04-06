@@ -79,7 +79,7 @@
     flex: 1;
     padding: 40px;
     background: linear-gradient(135deg, #121212 0%, #1a1a1a 100%);
-    overflow-y: hidden; /* Keeps the main modal static */
+    overflow-y: hidden; 
     display: flex;
     flex-direction: column;
 }
@@ -109,7 +109,7 @@
     grid-template-columns: repeat(2, 1fr);
     gap: 12px;
     margin: 15px 0;
-    max-height: 280px; /* Crucial for fitting 10 items */
+    max-height: 280px; 
     overflow-y: auto;
     padding-right: 10px;
 }
@@ -285,13 +285,13 @@
     font-size: 1.4rem;
 }
 
-/* --- Datepicker Overrides --- */
+
 /* --- REACT DATEPICKER PREMIUM DARK THEME --- */
 
 /* 1. Main Container */
 .react-datepicker {
-    background-color: #1a1a1a !important; /* Slightly lighter than pure black */
-    border: 1px solid #D4AF37 !important; /* Patupi Gold Border */
+    background-color: #1a1a1a !important; 
+    border: 1px solid #D4AF37 !important; 
     color: #ffffff !important;
     font-family: inherit;
     border-radius: 12px !important;
@@ -306,7 +306,7 @@
 }
 
 .react-datepicker__current-month {
-    color: #D4AF37 !important; /* Gold Month Title */
+    color: #D4AF37 !important; 
     font-weight: 700 !important;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -314,42 +314,42 @@
 
 /* 3. Day Names (Su, Mo, Tu...) */
 .react-datepicker__day-name {
-    color: #888 !important; /* Muted gray for labels */
+    color: #888 !important; 
     font-weight: 600 !important;
 }
 
 /* 4. Individual Days (The Numbers) */
 .react-datepicker__day {
-    color: #f0f0f0 !important; /* Bright white numbers */
+    color: #f0f0f0 !important; 
 }
 
 .react-datepicker__day:hover {
-    background-color: rgba(212, 175, 55, 0.2) !important; /* Gold tint on hover */
+    background-color: rgba(212, 175, 55, 0.2) !important; 
     border-radius: 50% !important;
 }
 
 /* 5. Selected Day */
 .react-datepicker__day--selected, 
 .react-datepicker__day--keyboard-selected {
-    background-color: #D4AF37 !important; /* Solid Gold for selection */
-    color: #000000 !important; /* Black text for contrast */
+    background-color: #D4AF37 !important; 
+    color: #000000 !important;
     border-radius: 50% !important;
     font-weight: 700 !important;
 }
 
 /* 6. Disabled/Past Days */
 .react-datepicker__day--disabled {
-    color: #444 !important; /* Dimmed out past dates */
+    color: #444 !important;
 }
 
 /* 7. The Little Arrow on Top */
 .react-datepicker__triangle {
-    display: none; /* Removes the ugly white triangle tip */
+    display: none; 
 }
 
 /* 8. Navigation Arrows */
 .react-datepicker__navigation-icon::before {
-    border-color: #D4AF37 !important; /* Gold Arrows */
+    border-color: #D4AF37 !important; 
 }
 
 .success-circle {
@@ -361,7 +361,7 @@
     align-items: center;
     justify-content: center;
     margin: 0 auto;
-    box-shadow: 0 0 30px rgba(212, 175, 55, 0.4); /* That "glow" effect */
+    box-shadow: 0 0 30px rgba(212, 175, 55, 0.4); 
 }
 
 .icon-box-muted {
@@ -375,7 +375,6 @@
 
 /* --- Final Screen Specific Additions --- */
 
-/* This removes the 600px height limit when the booking is done */
 .booking-card.final-view {
     display: block; 
     max-width: 500px;
@@ -386,7 +385,7 @@
 
 .booking-card.final-view .wizard-content {
     padding: 40px;
-    overflow-y: visible; /* Allows buttons to be seen */
+    overflow-y: visible;
     height: auto;
 }
 

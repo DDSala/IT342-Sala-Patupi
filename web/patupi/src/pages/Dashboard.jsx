@@ -19,7 +19,6 @@ import BookingWizard from '../components/BookingSystem/BookingWizard';
 import AppointmentDetailsModal from '../components/BookingSystem/AppointmentDetailsModal';
 
 const Dashboard = () => {
-  // --- States ---
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isBookingOpen, setIsBookingOpen] = useState(false);
@@ -41,7 +40,7 @@ const Dashboard = () => {
       });
     } catch (err) {
       console.error("Weather fetch failed:", err);
-      setWeather({ temp: 28, code: 0 }); // Fallback
+      setWeather({ temp: 28, code: 0 }); 
     }
   };
 

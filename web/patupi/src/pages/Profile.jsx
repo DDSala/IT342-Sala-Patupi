@@ -18,7 +18,7 @@ const Profile = () => {
     roleId: null
   });
 
-  // Backup state for the Cancel feature
+ 
   const [tempUser, setTempUser] = useState(null);
 
   const [passwordData, setPasswordData] = useState({
@@ -28,7 +28,7 @@ const Profile = () => {
   });
 
   useEffect(() => {
-    // FIX: Changed localStorage to sessionStorage
+   
     const savedUser = sessionStorage.getItem('user');
     if (savedUser) {
       setUser(JSON.parse(savedUser));
@@ -43,16 +43,16 @@ const Profile = () => {
   };
 
   const handleEditToggle = () => {
-    setTempUser({ ...user }); // Save current state before editing
+    setTempUser({ ...user }); 
     setIsEditing(true);
   };
 
   const handleCancelEdit = () => {
-    setUser({ ...tempUser }); // Revert to backup
+    setUser({ ...tempUser }); 
     setIsEditing(false);
   };
 
-  // UPDATE PROFILE (FIXED TO SYNC SESSION)
+ 
   const handleSaveProfile = async () => {
     if (!user.userId) {
       alert("Error: User ID not found.");
@@ -70,7 +70,7 @@ const Profile = () => {
       if (response.ok) {
         const updatedUser = await response.json();
         setUser(updatedUser);
-        // FIX: Sync sessionStorage so other pages see the new name immediately
+   
         sessionStorage.setItem('user', JSON.stringify(updatedUser)); 
         setIsEditing(false);
         triggerSuccess("Profile updated successfully!");
@@ -119,7 +119,7 @@ const Profile = () => {
   };
 
   const handleLogout = () => {
-    // FIX: Changed localStorage to sessionStorage
+    
     sessionStorage.removeItem('user');
     navigate('/login', { replace: true });
   };

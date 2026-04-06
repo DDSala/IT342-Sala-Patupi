@@ -19,7 +19,7 @@ const AdminCustomer = () => {
         }
 
         const user = JSON.parse(loggedInUser);
-        // Using Number() to ensure type safety for roleId comparison
+        
         if (Number(user.roleId) !== 1) {
             navigate('/dashboard', { replace: true });
             return;
@@ -30,7 +30,7 @@ const AdminCustomer = () => {
     const fetchCustomers = async () => {
         try {
             const res = await axios.get('http://localhost:8080/api/users/all');
-            // Filter specifically for customers (Role ID 3)
+            
             setCustomers(res.data.filter(user => Number(user.roleId) === 3));
             setLoading(false);
         } catch (err) {
@@ -39,12 +39,12 @@ const AdminCustomer = () => {
         }
     };
 
-    // DELETE FUNCTION
+    
     const handleDelete = async (id) => {
         if (window.confirm("Are you sure you want to permanently delete this customer account?")) {
             try {
                 await axios.delete(`http://localhost:8080/api/users/${id}`);
-                // Refresh the list after successful deletion
+                
                 fetchCustomers();
             } catch (err) {
                 console.error("Delete failed:", err);
@@ -152,7 +152,7 @@ const AdminCustomer = () => {
                 </section>
             </main>
 
-            {/* PREMIUM SIGN OUT MODAL */}
+            {/* SIGN OUT MODAL */}
             {showLogoutModal && (
                 <div className="modern-modal-overlay">
                     <div className="modern-modal-container">

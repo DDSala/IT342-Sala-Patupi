@@ -11,7 +11,7 @@ const ProtectedRoute = ({ children, allowedRoles }) => {
   const user = JSON.parse(savedUser);
 
   if (allowedRoles && !allowedRoles.includes(user.roleId)) {
-    // If an Admin tries to access a Customer page, or vice versa, redirect them home
+   
     if (user.roleId === 1) return <Navigate to="/admin" replace />;
     return <Navigate to="/dashboard" replace />;
   }

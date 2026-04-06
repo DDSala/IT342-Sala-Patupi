@@ -83,7 +83,7 @@ const AdminDashboard = () => {
     }
   };
 
-  // Switch to the /all endpoint to get Names instead of IDs from the DTO
+  
   const fetchAdminData = async () => {
     try {
       const res = await axios.get('http://localhost:8080/api/appointments/all');
@@ -116,7 +116,7 @@ const handleAssignSubmit = async () => {
   if (!selectedBarberId || !selectedAppt) return alert("Please select a barber.");
   
   try {
-    // Change selectedAppt.id to selectedAppt.appointmentId
+    
     await axios.put(`http://localhost:8080/api/appointments/${selectedAppt.appointmentId}/assign`, {
       barberId: selectedBarberId
     });
@@ -134,7 +134,7 @@ const handleAssignSubmit = async () => {
     if (window.confirm("Permanently delete this appointment?")) {
       try {
         await axios.delete(`http://localhost:8080/api/appointments/${id}`);
-        // Refresh local state immediately for better UX
+        
         setAppointments(prev => prev.filter(appt => appt.id !== id));
         fetchAdminData(); 
       } catch (err) {

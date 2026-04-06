@@ -24,7 +24,6 @@ public class BarberProfile {
 
     private String status;
 
-    // --- MANUAL SETTERS TO FIX COMPILATION ERRORS ---
     
     public void setStatus(String status) {
         this.status = status;
@@ -34,7 +33,6 @@ public class BarberProfile {
         this.user = user;
     }
 
-    // Adding getters manually too just in case
     public String getStatus() {
         return status;
     }

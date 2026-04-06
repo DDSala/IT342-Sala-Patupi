@@ -26,19 +26,19 @@ public class UserController {
     @Autowired
     private BarberService barberService;
 
-    // Fetch all users for Admin Customer Management
+
     @GetMapping("/all")
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
     
-    // Fetch only Barbers (Role 2)
+
     @GetMapping("/barbers")
     public ResponseEntity<?> getAllBarbers() {
         return ResponseEntity.ok(userRepository.findByRoleId(2));
     }
 
-    // Update User Profile
+
     @PutMapping("/{id}")
     public ResponseEntity<?> updateUser(@PathVariable Long id, @RequestBody User userDetails) {
         return userRepository.findById(id).map(user -> {
@@ -50,7 +50,6 @@ public class UserController {
         }).orElse(ResponseEntity.notFound().build());
     }
 
-    // Change Password
     @PutMapping("/{id}/password")
     public ResponseEntity<?> updatePassword(@PathVariable Long id, @RequestBody Map<String, String> passwords) {
         String currentPassword = passwords.get("currentPassword");
@@ -67,7 +66,6 @@ public class UserController {
         }).orElse(ResponseEntity.notFound().build());
     }
 
-    // Register/Onboard a new Barber
     @PostMapping("/register-barber")
     public ResponseEntity<?> registerBarber(@RequestBody Map<String, String> payload) {
         try {
@@ -78,7 +76,6 @@ public class UserController {
         }
     }
 
-    // The "God Mode" Delete Button
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable Long id) {
         return userRepository.findById(id).map(user -> {

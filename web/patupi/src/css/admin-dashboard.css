@@ -480,13 +480,13 @@
   gap: 6px;
 }
 
-/* --- THE ASSIGN MODAL (UPDATED FOR READABILITY) --- */
+/* --- THE ASSIGN MODAL --- */
 .modern-modal-container.assign-modal-premium {
-  background: #1a1a1a !important; /* Changed to Dark for better text contrast */
+  background: #1a1a1a !important; 
   border: 1px solid var(--border-color);
   border-radius: 24px;
   padding: 35px;
-  text-align: left; /* Left align for cleaner form look */
+  text-align: left;
   max-width: 440px;
   width: 90%;
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8);
@@ -505,7 +505,7 @@
 }
 
 .assign-modal-premium h3 {
-  color: #fff !important; /* Visible white text */
+  color: #fff !important; 
   margin-top: 10px;
   font-size: 1.4rem;
 }
@@ -515,7 +515,7 @@
 }
 
 .appointment-mini-card {
-  background: #252525 !important; /* Darker sub-card */
+  background: #252525 !important;
   padding: 20px;
   border-radius: 16px;
   margin: 25px 0;
@@ -609,19 +609,18 @@
 }
 
 /* --- FIXED MODERN MODAL OVERLAY --- */
-/* This is the magic part that makes it overlay the whole screen */
 .modern-modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.85); /* Dims the background */
-  backdrop-filter: blur(8px);    /* Optional: blurs the dashboard behind it */
+  background: rgba(0, 0, 0, 0.85); 
+  backdrop-filter: blur(8px);   
   display: flex;
-  align-items: center;           /* Centers vertically */
-  justify-content: center;        /* Centers horizontally */
-  z-index: 9999;                 /* Ensures it stays on top of everything */
+  align-items: center;          
+  justify-content: center;        
+  z-index: 9999;                 
   animation: modalFadeIn 0.3s ease;
 }
 
@@ -742,7 +741,7 @@
   padding: 16px 24px;
   border-radius: 14px;
   font-weight: 800;
-  flex: 2; /* Makes the confirm button wider than cancel */
+  flex: 2;
   cursor: pointer;
   transition: all 0.3s;
 }
@@ -771,19 +770,19 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(0, 0, 0, 0.85); /* Dims the background */
-    backdrop-filter: blur(10px);    /* Blurs the dashboard behind */
+    background: rgba(0, 0, 0, 0.85); 
+    backdrop-filter: blur(10px);    
     display: flex;
-    align-items: center;           /* Centers vertically */
-    justify-content: center;        /* Centers horizontally */
-    z-index: 10000;                /* Stays above everything */
+    align-items: center;           
+    justify-content: center;       
+    z-index: 10000;                
     animation: modalFadeIn 0.3s ease;
 }
 
 /* --- CONTAINER: Premium Dark Styling --- */
 .modern-modal-container {
-    background: #151510 !important; /* Matches your --card-bg */
-    border: 1px solid #22221a;     /* Matches your --border-color */
+    background: #151510 !important; 
+    border: 1px solid #22221a;    
     border-radius: 28px;
     padding: 45px 35px;
     text-align: center;
@@ -811,7 +810,7 @@
 .modal-icon-container {
     width: 75px;
     height: 75px;
-    background: rgba(255, 152, 0, 0.05); /* Very subtle orange tint */
+    background: rgba(255, 152, 0, 0.05); 
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -849,7 +848,7 @@
 }
 
 .btn-modal-premium {
-    background: #d4af37; /* Patupi Gold */
+    background: #d4af37; 
     color: #000000;
     border: none;
     padding: 14px 24px;

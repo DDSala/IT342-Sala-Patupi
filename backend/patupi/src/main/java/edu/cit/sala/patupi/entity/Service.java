@@ -1,6 +1,6 @@
 package edu.cit.sala.patupi.entity;
 
-import com.fasterxml.jackson.annotation.JsonProperty; // Add this import
+import com.fasterxml.jackson.annotation.JsonProperty; 
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 
@@ -10,7 +10,7 @@ public class Service {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "service_id")
-    @JsonProperty("service_id") // Force JSON key to match React 's.service_id'
+    @JsonProperty("service_id")
     private Integer service_id;
 
     @Column(name = "name", nullable = false)
@@ -18,14 +18,13 @@ public class Service {
     private String name;
 
     @Column(name = "base_price")
-    @JsonProperty("base_price") // Force JSON key to match React 's.base_price'
+    @JsonProperty("base_price")
     private BigDecimal base_price;
 
     @Column(name = "duration_minutes")
     @JsonProperty("duration_minutes")
     private Integer duration_minutes;
 
-    // Getters and Setters remain the same...
     public Integer getService_id() { return service_id; }
     public void setService_id(Integer service_id) { this.service_id = service_id; }
 

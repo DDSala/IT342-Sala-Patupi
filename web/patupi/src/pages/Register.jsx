@@ -6,7 +6,7 @@ const Register = () => {
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
-    address: '', // Added Address state
+    address: '',
     password: '',
     confirmPassword: ''
   });
@@ -42,7 +42,7 @@ const Register = () => {
         body: JSON.stringify({
           fullName: formData.fullName,
           email: formData.email.trim(),
-          address: formData.address, // Sending address to backend
+          address: formData.address, 
           password: formData.password,
           roleId: 3 
         }),
