@@ -1,0 +1,591 @@
+/* --- GLOBAL THEME --- */
+.dashboard-wrapper {
+  display: flex;
+  min-height: 100vh;
+  background-color: #0c0c0c;
+  color: #f5f5f5;
+  font-family: 'Inter', sans-serif;
+}
+
+/* --- SIDEBAR & LOGO FIX --- */
+.sidebar {
+  width: 280px;         /* Choose a fixed width (e.g., 280px) */
+  min-width: 280px;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  padding: 2rem;       /* Ensure internal spacing is identical */
+  box-sizing: border-box; 
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 40px;
+  padding: 5px;
+}
+
+.brand-icon-box {
+  background-color: #d4af37;
+  color: #121212;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.brand-text-stack {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-name {
+  color: #d4af37;
+  font-size: 1.4rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.brand-sub {
+  color: #d1d1ca;
+  font-size: 0.65rem;
+  letter-spacing: 2px;
+  margin-top: 2px;
+}
+
+.sidebar-nav {
+  flex-grow: 1;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  padding: 14px 18px;
+  color: #888;
+  text-decoration: none;
+  border-radius: 10px;
+  margin-bottom: 8px;
+  transition: 0.3s;
+}
+
+.nav-item.active {
+  background-color: #242116;
+  color: #d4af37;
+}
+
+.nav-icon {
+  margin-right: 12px;
+}
+
+.book-now-sidebar {
+  background-color: #d4af37;
+  color: #121212;
+  border: none;
+  padding: 14px;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* --- MAIN CONTENT & HEADER --- */
+.main-content {
+  margin-left: 280px;  /* MUST match sidebar width */
+  width: calc(100% - 280px);
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+.content-header {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 30px;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.user-profile-nav {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.user-avatar-circle {
+  width: 35px;
+  height: 35px;
+  background-color: #d1d1ca;
+  color: #121212;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+/* --- TICKET CARD --- */
+.section-label {
+  color: #d4af37;
+  margin-bottom: 15px;
+}
+
+.ticket-card-empty {
+  display: flex;
+  background-color: #1a1a1a;
+  height: 250px;
+  border-radius: 15px;
+  overflow: hidden;
+  border: 1px solid #2a2a2a;
+}
+
+.ticket-visual-side {
+  width: 40%;
+  background-image: url('https://images.unsplash.com/photo-1585747860715-2ba37e788b70?auto=format&fit=crop&q=80&w=1000');
+  background-size: cover;
+  background-position: center;
+}
+
+.ticket-empty-message {
+  width: 60%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  text-align: center;
+  color: #d1d1ca;
+  font-size: 1.1rem;
+}
+
+/* --- DASHBOARD GRID & TABLES --- */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.grid-card {
+  background-color: #1a1a1a;
+  border-radius: 15px;
+  padding: 25px;
+  border: 1px solid #2a2a2a;
+  min-height: 350px;
+}
+
+.card-header-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.card-header-flex h4 { color: #d4af37; margin: 0; }
+
+.text-link-gold {
+  background: none;
+  border: none;
+  color: #d4af37;
+  font-size: 0.8rem;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.data-table-minimal {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.data-table-minimal th {
+  text-align: left;
+  font-size: 0.75rem;
+  color: #555;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #2a2a2a;
+}
+
+.empty-table-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  color: #444;
+  font-weight: 500;
+}
+
+/* --- FOOTER --- */
+.dashboard-footer-simple {
+  margin-top: 60px;
+  text-align: center;
+  color: #444;
+  font-size: 0.8rem;
+}
+
+.footer-links-row {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 10px;
+}
+
+/* The Container */
+.active-ticket-card {
+    background: rgba(255, 255, 255, 0.03);
+    border-left: 4px solid #D4AF37; /* The Gold Stripe */
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 30px;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+}
+
+/* Subtle background pattern (Optional "Patupi" vibe) */
+.active-ticket-card::before {
+    content: '✂️';
+    position: absolute;
+    right: -10px;
+    bottom: -10px;
+    font-size: 8rem;
+    opacity: 0.03;
+    transform: rotate(-20px);
+}
+
+.ticket-service-name {
+    color: #D4AF37;
+    font-size: 1.5rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+}
+
+.ticket-status-badge {
+    background: rgba(212, 175, 55, 0.1);
+    color: #D4AF37;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.ticket-card-active {
+    display: flex;
+    position: relative;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.ticket-visual-side.active-glow {
+    width: 6px;
+    background: linear-gradient(to bottom, #D4AF37, #8a6d1d);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+}
+
+.ticket-details {
+    padding: 20px;
+    flex-grow: 1;
+}
+
+.ticket-info-row {
+    display: flex;
+    gap: 20px;
+    margin: 10px 0;
+    font-size: 0.9rem;
+    color: #ccc;
+}
+
+.ticket-info-row p {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.ticket-photo-preview img {
+    width: 100px;
+    height: 100%;
+    object-fit: cover;
+    border-left: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.status-pill.confirmed { background: rgba(0, 255, 100, 0.1); color: #00ff64; }
+.status-pill.pending { background: rgba(212, 175, 55, 0.1); color: #D4AF37; }
+
+.sidebar-status-box {
+    margin-top: auto;
+    padding: 12px;
+    background: rgba(212, 175, 55, 0.05);
+    border: 1px solid rgba(212, 175, 55, 0.1);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: #888;
+    font-size: 0.85rem;
+}
+
+/* --- PREMIUM TICKET CARD REWRITE --- */
+.premium-ticket-card {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 40px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 100%);
+    border: 1px solid rgba(212, 175, 55, 0.15);
+    border-radius: 16px;
+    overflow: hidden;
+    backdrop-filter: blur(12px);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.premium-ticket-card:hover {
+    border-color: rgba(212, 175, 55, 0.4);
+    transform: translateY(-2px);
+}
+
+.ticket-accent-bar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 5px;
+    background: linear-gradient(to bottom, #D4AF37, #8A6E2F);
+    box-shadow: 2px 0 15px rgba(212, 175, 55, 0.4);
+}
+
+.ticket-main-content {
+    flex: 1;
+}
+
+.ticket-status-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.muted-icon {
+    opacity: 0.2;
+    color: #D4AF37;
+}
+
+/* Status Badges */
+.status-badge {
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 0.65rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.status-badge.confirmed {
+    background: rgba(46, 213, 115, 0.1);
+    color: #2ed573;
+    border: 1px solid rgba(46, 213, 115, 0.2);
+}
+
+.status-badge.pending, .status-badge.draft {
+    background: rgba(212, 175, 55, 0.1);
+    color: #D4AF37;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.ticket-title {
+    font-size: 1.5rem;
+    color: #fff;
+    font-weight: 700;
+    margin-bottom: 15px;
+    letter-spacing: -0.5px;
+}
+
+/* Meta Grid (Date/Time) */
+.ticket-meta-grid {
+    display: flex;
+    gap: 25px;
+}
+
+.meta-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #a0a0a0;
+    font-size: 0.9rem;
+}
+
+.meta-icon {
+    color: #D4AF37;
+    opacity: 0.7;
+}
+
+/* Action Area */
+.ticket-action-area {
+    padding-left: 30px;
+}
+
+.view-details-btn {
+    background: rgba(212, 175, 55, 0.08);
+    color: #D4AF37;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+
+.view-details-btn:hover {
+    background: #D4AF37;
+    color: #000;
+    border-color: #D4AF37;
+}
+
+/* --- SIDEBAR LOCK --- */
+.sidebar-status-box {
+    margin-top: auto;
+    padding: 14px;
+    background: rgba(212, 175, 55, 0.05);
+    border: 1px solid rgba(212, 175, 55, 0.1);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: #777;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.ticket-action-area {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-left: 25px;
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.cancel-ticket-btn {
+    background: transparent;
+    color: #a0a0a0;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+}
+
+.cancel-ticket-btn:hover {
+    background: rgba(255, 71, 87, 0.1);
+    color: #ff4757;
+    border-color: rgba(255, 71, 87, 0.3);
+}
+
+/* Ensure history reflects the cancelled color */
+.status-dim.cancelled {
+    color: #ff4757 !important;
+    opacity: 0.8;
+}
+
+/* Table Cell Styles */
+.data-table-minimal th {
+  text-align: left;
+  font-size: 0.7rem;
+  color: #888;
+  padding: 10px 5px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.data-table-minimal td {
+  padding: 12px 5px;
+  font-size: 0.85rem;
+  vertical-align: middle;
+}
+
+/* History Specific Fixes */
+.history-desc-cell {
+  max-width: 150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #ccc;
+}
+
+.status-cell-dim.cancelled {
+  color: #ff4d4d; /* Red for cancelled */
+  font-weight: 600;
+  font-size: 0.75rem;
+}
+
+.status-cell-dim.completed {
+  color: #4CAF50; /* Green for completed */
+  font-weight: 600;
+  font-size: 0.75rem;
+}
+
+/* Container for the empty state */
+.ticket-card-empty {
+    display: flex;
+    align-items: center;    /* Vertical center */
+    justify-content: center; /* Horizontal center */
+    background-color: #1a1a1a;
+    height: 200px;           /* Adjusted height to feel less "empty" */
+    border-radius: 15px;
+    border: 1px solid #2a2a2a;
+    width: 100%;
+}
+
+/* The wrapper inside that handles the text alignment */
+.empty-message-container {
+    display: flex;
+    flex-direction: column; /* Stacks text on top of the button */
+    align-items: center;    /* Centers the button under the text */
+    gap: 12px;              /* Adds a nice gap between text and link */
+    text-align: center;
+}
+
+.empty-message-container p {
+    color: #888;
+    font-size: 1.1rem;
+    margin: 0;             /* Remove default margins that cause offset */
+}
+
+.text-link-gold {
+    background: none;
+    border: none;
+    color: #d4af37;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: underline;
+    transition: opacity 0.2s;
+}
+
+.text-link-gold:hover {
+    opacity: 0.8;
+}
+

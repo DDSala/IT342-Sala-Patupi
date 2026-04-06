@@ -1,4 +1,4 @@
-package com.sala.patupi.dto;
+package edu.cit.sala.patupi.dto;
 
 public class RegistrationRequest {
     private String fullName;

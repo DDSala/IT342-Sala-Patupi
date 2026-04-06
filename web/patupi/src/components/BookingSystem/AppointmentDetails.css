@@ -1,0 +1,207 @@
+/* --- APPOINTMENT DETAILS (PREMIUM RECEIPT) --- */
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(12px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3000;
+    padding: 20px;
+}
+
+.premium-details-card {
+    width: 100%;
+    max-width: 420px;
+    background: #0a0a0a;
+    border: 1px solid rgba(212, 175, 55, 0.15);
+    border-radius: 24px;
+    padding: 32px;
+    position: relative;
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8);
+    animation: modalSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalSlideIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.ticket-top-edge {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: #D4AF37;
+    border-radius: 24px 24px 0 0;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: center; /* Center the title now that X is gone */
+    align-items: center;
+    margin-bottom: 24px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.brand-logo-mini {
+    background: #D4AF37;
+    padding: 6px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+}
+
+.header-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 2px; /* More "brand" feel */
+}
+
+.close-icon-btn {
+    background: transparent;
+    border: none;
+    color: #444;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.close-icon-btn:hover { color: #fff; }
+
+/* Info Blocks */
+.info-block {
+    margin-bottom: 16px;
+    background: #111;
+    padding: 20px;
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,0.03);
+}
+
+.block-label-flex {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.block-label-flex label {
+    font-size: 0.65rem;
+    color: #666;
+    text-transform: uppercase;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+}
+
+.icon-gold { color: #D4AF37; }
+
+.service-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.service-name-text {
+    font-size: 1.4rem;
+    color: #fff;
+    margin: 0;
+}
+
+.reference-badge {
+    font-family: monospace;
+    color: #D4AF37;
+    background: rgba(212, 175, 55, 0.05);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+}
+
+.service-desc-text {
+    color: #888;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    margin: 0;
+}
+
+/* Grid */
+.details-data-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.data-item {
+    background: #111;
+    padding: 16px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.data-stack label {
+    display: block;
+    font-size: 0.6rem;
+    color: #666;
+}
+
+.data-stack span {
+    color: #eee;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+/* Summary */
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.summary-label { color: #666; font-size: 0.9rem; }
+.total-value-text { color: #D4AF37; font-weight: 700; font-size: 1.1rem; }
+
+.status-badge-flat {
+    font-size: 0.7rem;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+.status-badge-flat.confirmed { color: #4CAF50; background: rgba(76,175,80,0.1); }
+.status-badge-flat.cancelled { color: #FF5252; background: rgba(255,82,82,0.1); }
+
+/* Bottom Action */
+.modal-policy-notice {
+    display: flex;
+    gap: 10px;
+    color: #555;
+    font-size: 0.75rem;
+    margin: 20px 0;
+}
+
+.done-action-btn {
+    width: 100%;
+    background: #D4AF37;
+    border: none;
+    padding: 14px;
+    border-radius: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.done-action-btn:hover { background: #e5c04a; }

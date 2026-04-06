@@ -1,0 +1,924 @@
+/* Base Layout & Color Palette */
+:root {
+  --admin-bg: #0c0c0c;
+  --card-bg: #151510;
+  --sidebar-bg: #0c0c0c;
+  --gold-primary: #d4af37;
+  --text-main: #ffffff;
+  --text-muted: #666666;
+  --border-color: #22221a;
+}
+
+.admin-container {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--admin-bg);
+  color: var(--text-main);
+  font-family: 'Inter', -apple-system, sans-serif;
+}
+
+/* SIDEBAR - Fixed to the left */
+.admin-sidebar {
+  width: 260px;
+  background-color: var(--sidebar-bg);
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  padding: 30px 20px;
+  position: fixed;
+  height: 100vh;
+}
+
+.admin-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 50px;
+  padding-left: 10px;
+}
+
+.admin-logo-box {
+  background: var(--gold-primary);
+  color: #000;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  font-weight: 900;
+}
+
+.admin-brand-text {
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+/* Update the container for the nav items */
+.admin-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 8px; 
+    padding: 0 12px; 
+}
+
+/* Base style for all items */
+.admin-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px; 
+    border-radius: 8px;
+    color: #94a3b8; 
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 100%; 
+}
+
+/* The Active State Fix */
+.admin-nav-item.active {
+    background-color: rgba(234, 179, 8, 0.1); 
+    color: #eab308; 
+}
+
+/* Ensure icons don't shrink or shift */
+.admin-nav-item svg {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.admin-logout {
+  margin-top: auto;
+  background: transparent;
+  border: none;
+  color: #e63946;
+  padding: 15px;
+  text-align: left;
+  cursor: pointer;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* MAIN CONTENT AREA */
+.admin-content {
+  margin-left: 260px;
+  flex: 1;
+  padding: 40px 50px;
+}
+
+.admin-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.admin-top-bar h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+/* STAT CARDS */
+.admin-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+  margin-bottom: 40px;
+}
+
+.admin-stat-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  padding: 30px;
+  border-radius: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.stat-left label {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.stat-left h3 {
+  font-size: 2.5rem;
+  margin-top: 10px;
+  font-weight: 700;
+}
+
+.stat-right-icon {
+  font-size: 2rem;
+  color: #2a2a20; 
+}
+
+/* SECTION CARDS & TABLES */
+.admin-section-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 30px;
+  margin-bottom: 30px;
+}
+
+.section-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 25px;
+}
+
+.section-header-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.queue-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.queue-table th {
+  text-align: left;
+  color: var(--text-muted);
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 12px;
+  border-bottom: 1px solid #222;
+}
+
+.queue-table td {
+  padding: 20px 12px;
+  border-bottom: 1px solid #1a1a1a;
+}
+
+/* CUSTOMER CELL DETAIL */
+.cust-cell {
+  display: flex;
+  flex-direction: column;
+}
+
+.cust-name {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.cust-service {
+  font-size: 0.8rem;
+  color: var(--gold-primary);
+  margin-top: 4px;
+}
+
+/* BADGES & BUTTONS */
+.status-badge.gold {
+  background: #241a0a;
+  color: var(--gold-primary);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.65rem;
+  font-weight: 900;
+}
+
+.btn-assign {
+  background: var(--gold-primary);
+  color: #000;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-weight: 800;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+
+.btn-assign:active {
+  transform: scale(0.96);
+}
+
+.btn-view-all {
+  background: transparent;
+  border: none;
+  color: var(--gold-primary);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* STATUS DOTS */
+.dot-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+}
+
+.dot-status.confirmed { color: #4caf50; }
+.dot-status.waiting { color: #ff9800; }
+
+.time-highlight {
+  color: #888;
+}
+
+.empty-row {
+  text-align: center;
+  padding: 60px !important;
+  color: #333;
+  font-style: italic;
+}
+
+/* Warning Icon with specific Glow */
+.modal-icon-container {
+  width: 70px;
+  height: 70px;
+  background: #1a1a14;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 25px;
+  position: relative;
+}
+
+.glow-warning {
+  border: 2px solid #ff980033; 
+  box-shadow: 0 0 25px #ff980022; 
+}
+
+.icon-warning { font-size: 2.2rem; }
+
+/* --- MODERN BUTTONS --- */
+.modal-action-row {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+/* NEVERMIND: Subtle Outline */
+.btn-modal-outline {
+  background: transparent;
+  color: #fff;
+  border: 2px solid #333;
+  padding: 14px 28px;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.btn-modal-outline:hover {
+  border-color: #555;
+  background: rgba(255,255,255,0.05);
+}
+
+/* SIGN OUT: Premium Gold Button */
+.btn-modal-premium {
+  background: #d4af37; 
+  color: #000;
+  border: none;
+  padding: 14px 28px;
+  border-radius: 12px;
+  font-weight: 800; 
+  font-size: 0.9rem;
+  cursor: pointer;
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.2); 
+  transition: all 0.2s ease;
+}
+
+.btn-modal-premium:hover {
+  transform: translateY(-2px); 
+  box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3); 
+}
+
+.btn-modal-premium:active {
+  transform: translateY(1px); 
+}
+
+/* --- KEYFRAME ANIMATIONS --- */
+@keyframes modalFadeIn {
+  to { opacity: 1; }
+}
+
+@keyframes modalSlideUp {
+  to { transform: translateY(0); }
+}
+
+.btn-delete-admin {
+  background: transparent;
+  color: #ff4d4d;
+  border: 1px solid #ff4d4d33;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.btn-delete-admin:hover {
+  background: #ff4d4d;
+  color: white;
+}
+
+.time-stack {
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+/* Status Colors for Admin */
+.status-badge.pending { background: #241a0a; color: #d4af37; }
+.status-badge.confirmed { background: #0a2410; color: #4caf50; }
+.status-badge.cancelled { background: #240a0a; color: #f44336; }
+
+/* Container for the whole right side */
+.admin-meta {
+  display: flex;
+  align-items: center; 
+  gap: 20px; 
+}
+
+/* Style the weather specifically */
+.admin-weather-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 500;
+  color: #fff; 
+  font-size: 0.95rem;
+}
+
+/* Ensure the bell icon is centered too */
+.admin-notif-bell {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  color: #fff;
+}
+
+/* The red dot for notifications */
+.bell-dot {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 8px;
+  height: 8px;
+  background: #ff4d4d;
+  border-radius: 50%;
+}
+
+/* The date display */
+.admin-date-display {
+  font-size: 0.9rem;
+  color: #999;
+  font-weight: 400;
+  border-left: 1px solid #333; 
+  padding-left: 20px;
+}
+
+/* Assign Button Style */
+.btn-assign-admin {
+    background: #e3f2fd; 
+    color: #2196f3;      
+    border: none;
+    padding: 6px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-assign-admin:hover {
+    background: #2196f3;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3);
+}
+
+/* Container for the buttons in the table cell */
+.action-buttons-flex {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.btn-assign-action {
+  background: linear-gradient(135.2deg, #e3a010 0.8%, #f5c045 98.2%);
+  color: #1a1a1a;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(227, 160, 16, 0.2);
+}
+
+.btn-assign-action:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(227, 160, 16, 0.4);
+  filter: brightness(1.1);
+}
+
+.icon-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* --- THE ASSIGN MODAL (UPDATED FOR READABILITY) --- */
+.modern-modal-container.assign-modal-premium {
+  background: #1a1a1a !important; /* Changed to Dark for better text contrast */
+  border: 1px solid var(--border-color);
+  border-radius: 24px;
+  padding: 35px;
+  text-align: left; /* Left align for cleaner form look */
+  max-width: 440px;
+  width: 90%;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8);
+  position: relative;
+  overflow: hidden;
+  animation: modalSlideUp 0.35s ease-out forwards;
+}
+
+.modal-header-accent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: linear-gradient(90deg, #e3a010, #f5c045);
+}
+
+.assign-modal-premium h3 {
+  color: #fff !important; /* Visible white text */
+  margin-top: 10px;
+  font-size: 1.4rem;
+}
+
+.assign-modal-premium p {
+  color: var(--text-muted) !important;
+}
+
+.appointment-mini-card {
+  background: #252525 !important; /* Darker sub-card */
+  padding: 20px;
+  border-radius: 16px;
+  margin: 25px 0;
+  border-left: 4px solid #e3a010;
+}
+
+.appointment-mini-card .label {
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: #888;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.appointment-mini-card .value {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #fff;
+  display: block;
+}
+
+/* SELECT STYLING */
+.selection-group {
+  margin-bottom: 30px;
+}
+
+.selection-group label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #ccc;
+  margin-bottom: 12px;
+}
+
+.premium-select {
+  width: 100%;
+  padding: 15px;
+  border-radius: 12px;
+  border: 1px solid #333;
+  background-color: #000;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s;
+  appearance: none;
+}
+
+.premium-select:focus {
+  border-color: #e3a010;
+}
+
+/* BUTTONS */
+.modal-footer-btns {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.btn-cancel-flat {
+  background: transparent;
+  border: none;
+  color: #888;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 10px;
+  transition: color 0.2s;
+}
+
+.btn-cancel-flat:hover {
+  color: #fff;
+}
+
+.btn-confirm-gold {
+  background: var(--gold-primary) !important;
+  color: #000 !important;
+  border: none;
+  padding: 15px 25px;
+  border-radius: 12px;
+  font-weight: 800;
+  flex: 1;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-confirm-gold:hover {
+  background: #f5c045 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2);
+}
+
+/* --- FIXED MODERN MODAL OVERLAY --- */
+/* This is the magic part that makes it overlay the whole screen */
+.modern-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.85); /* Dims the background */
+  backdrop-filter: blur(8px);    /* Optional: blurs the dashboard behind it */
+  display: flex;
+  align-items: center;           /* Centers vertically */
+  justify-content: center;        /* Centers horizontally */
+  z-index: 9999;                 /* Ensures it stays on top of everything */
+  animation: modalFadeIn 0.3s ease;
+}
+
+/* --- THE ASSIGN MODAL CONTAINER --- */
+.modern-modal-container.assign-modal-premium {
+  background: #1a1a1a !important; 
+  border: 1px solid var(--border-color);
+  border-radius: 28px;
+  padding: 40px;
+  text-align: left;
+  max-width: 450px;
+  width: 95%;
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.9);
+  position: relative;
+  overflow: hidden;
+  animation: modalSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* --- THE GOLD ACCENT BAR --- */
+.modal-header-accent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: linear-gradient(90deg, #e3a010, #f5c045);
+}
+
+.assign-modal-premium h3 {
+  color: #fff !important;
+  margin-top: 15px;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.appointment-mini-card {
+  background: #252525 !important;
+  padding: 22px;
+  border-radius: 18px;
+  margin: 25px 0;
+  border-left: 4px solid #e3a010;
+}
+
+.appointment-mini-card .label {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #777;
+  letter-spacing: 1.2px;
+  margin-bottom: 8px;
+  display: block;
+  text-transform: uppercase;
+}
+
+.appointment-mini-card .value {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #fff;
+  display: block;
+}
+
+/* --- SELECT STYLING --- */
+.selection-group label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #bbb;
+  margin-bottom: 12px;
+}
+
+.premium-select {
+  width: 100%;
+  padding: 16px;
+  border-radius: 14px;
+  border: 1.5px solid #333;
+  background-color: #000;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.2s;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23d4af37'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  background-size: 18px;
+}
+
+.premium-select:focus {
+  border-color: #e3a010;
+  box-shadow: 0 0 0 4px rgba(227, 160, 16, 0.1);
+}
+
+/* --- FOOTER BUTTONS --- */
+.modal-footer-btns {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.btn-cancel-flat {
+  background: #252525;
+  border: none;
+  color: #eee;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 16px 24px;
+  border-radius: 14px;
+  transition: all 0.2s;
+}
+
+.btn-cancel-flat:hover {
+  background: #333;
+}
+
+.btn-confirm-gold {
+  background: linear-gradient(135deg, #d4af37, #f5c045) !important;
+  color: #000 !important;
+  border: none;
+  padding: 16px 24px;
+  border-radius: 14px;
+  font-weight: 800;
+  flex: 2; /* Makes the confirm button wider than cancel */
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-confirm-gold:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 24px rgba(212, 175, 55, 0.3);
+  filter: brightness(1.1);
+}
+
+/* --- ANIMATIONS --- */
+@keyframes modalFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes modalSlideUp {
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* --- OVERLAY: Fixes the "on the side" issue --- */
+.modern-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.85); /* Dims the background */
+    backdrop-filter: blur(10px);    /* Blurs the dashboard behind */
+    display: flex;
+    align-items: center;           /* Centers vertically */
+    justify-content: center;        /* Centers horizontally */
+    z-index: 10000;                /* Stays above everything */
+    animation: modalFadeIn 0.3s ease;
+}
+
+/* --- CONTAINER: Premium Dark Styling --- */
+.modern-modal-container {
+    background: #151510 !important; /* Matches your --card-bg */
+    border: 1px solid #22221a;     /* Matches your --border-color */
+    border-radius: 28px;
+    padding: 45px 35px;
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.9);
+    position: relative;
+    animation: modalSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modern-modal-container h3 {
+    color: #ffffff;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.modern-modal-container p {
+    color: #666666;
+    font-size: 0.95rem;
+    margin-bottom: 35px;
+}
+
+/* --- ICON & GLOW --- */
+.modal-icon-container {
+    width: 75px;
+    height: 75px;
+    background: rgba(255, 152, 0, 0.05); /* Very subtle orange tint */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 25px;
+}
+
+.glow-warning {
+    border: 2px solid rgba(255, 152, 0, 0.2);
+    box-shadow: 0 0 25px rgba(255, 152, 0, 0.15);
+}
+
+/* --- BUTTONS --- */
+.modal-action-row {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.btn-modal-outline {
+    background: transparent;
+    color: #ffffff;
+    border: 2px solid #333;
+    padding: 14px 24px;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    flex: 1;
+    transition: all 0.2s;
+}
+
+.btn-modal-outline:hover {
+    border-color: #555;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.btn-modal-premium {
+    background: #d4af37; /* Patupi Gold */
+    color: #000000;
+    border: none;
+    padding: 14px 24px;
+    border-radius: 12px;
+    font-weight: 800;
+    flex: 1;
+    cursor: pointer;
+    box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2);
+    transition: all 0.2s ease;
+}
+
+.btn-modal-premium:hover {
+    transform: translateY(-2px);
+    background: #f5c045;
+    box-shadow: 0 12px 25px rgba(212, 175, 55, 0.4);
+}
+
+/* --- ANIMATIONS --- */
+@keyframes modalFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes modalSlideUp {
+    from { transform: translateY(30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* Table Thumbnail */
+.table-img-wrapper {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.table-img-wrapper:hover {
+    transform: scale(1.1);
+    border-color: #d4af37;
+}
+
+.table-img-thumb {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Modal Preview */
+.modal-photo-preview {
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.modal-main-img {
+    width: 100%;
+    max-height: 200px;
+    object-fit: contain;
+    border-radius: 12px;
+    background: #1a1a1a;
+    border: 1px solid #333;
+    margin-top: 8px;
+}
+
+.modal-desc {
+    font-size: 0.8rem;
+    color: #888;
+    font-style: italic;
+    margin-top: 5px;
+}

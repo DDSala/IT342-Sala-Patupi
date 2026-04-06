@@ -1,8 +1,11 @@
 package edu.cit.sala.patupi.service;
 
+import edu.cit.sala.patupi.dto.AppointmentResponseDTO;
 import edu.cit.sala.patupi.entity.Appointment;
 import edu.cit.sala.patupi.repository.AppointmentRepository;
-import edu.cit.sala.patupi.repository.ServiceRepository; // Assuming you have this
+import edu.cit.sala.patupi.repository.ServiceRepository;
+import edu.cit.sala.patupi.repository.UserRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class AppointmentService {
@@ -20,29 +24,77 @@ public class AppointmentService {
     @Autowired
     private ServiceRepository serviceRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     public List<Map<String, Object>> getCustomerAppointmentsWithNames(Long customerId) {
         List<Appointment> appointments = appointmentRepository.findByCustomerId(customerId);
         List<Map<String, Object>> enrichedList = new ArrayList<>();
 
         for (Appointment app : appointments) {
             Map<String, Object> map = new HashMap<>();
-            map.put("appointmentId", app.getId());
+            map.put("appointmentId", app.getId()); 
             map.put("status", app.getStatus());
             map.put("scheduledAt", app.getScheduled_at());
             map.put("description", app.getDescription());
             map.put("photo", app.getReference_photo());
 
-if (app.getService_id() != 0) {
-    String name = serviceRepository.findById(app.getService_id())
-            .map(s -> s.getName())
-            .orElse("Standard Service");
-    map.put("serviceName", name);
-} else {
-    map.put("serviceName", "Pending Selection");
-}
+            if (app.getService_id() != null && app.getService_id() != 0) {
+                serviceRepository.findById(app.getService_id()).ifPresent(s -> {
+                    map.put("serviceName", s.getName());
+                    map.put("totalAmount", s.getBase_price()); 
+                });
+            } else {
+                map.put("serviceName", "Pending Selection");
+                map.put("totalAmount", 0.00);
+            }
 
             enrichedList.add(map);
         }
         return enrichedList;
+    }
+
+    public boolean isCustomerBusy(Long customerId) {
+        return appointmentRepository.hasActiveAppointment(customerId);
+    }
+
+    public List<AppointmentResponseDTO> getAllAppointmentsForAdmin() {
+        List<Appointment> appointments = appointmentRepository.findAll();
+        return appointments.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+
+    private AppointmentResponseDTO convertToDTO(Appointment app) {
+        AppointmentResponseDTO dto = new AppointmentResponseDTO();
+        
+        dto.setAppointmentId(app.getId()); 
+        dto.setStatus(app.getStatus());
+        dto.setScheduledAt(app.getScheduled_at());
+        dto.setDescription(app.getDescription());
+        dto.setReferencePhoto(app.getReference_photo());
+
+        // Map Customer Name
+        if (app.getUser() != null) {
+            dto.setCustomerName(app.getUser().getFullName());
+        } else {
+            dto.setCustomerName("Unknown Customer");
+        }
+
+        // --- THE FIX: Map Barber Name ---
+        if (app.getBarberId() != null) {
+            userRepository.findById(app.getBarberId())
+                .ifPresent(b -> dto.setBarberName(b.getFullName()));
+        }
+
+        // Map Service Name
+        if (app.getService_id() != null && app.getService_id() != 0) {
+            serviceRepository.findById(app.getService_id())
+                .ifPresent(s -> dto.setService(s.getName()));
+        } else {
+            dto.setService("Not Selected");
+        }
+
+        return dto;
     }
 }

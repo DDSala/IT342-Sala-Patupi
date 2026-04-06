@@ -1,16 +1,16 @@
 package edu.cit.sala.patupi.controller;
 
 import edu.cit.sala.patupi.entity.Appointment;
+import edu.cit.sala.patupi.entity.User;
 import edu.cit.sala.patupi.repository.AppointmentRepository;
-import edu.cit.sala.patupi.service.AppointmentService; // Import the service
-import edu.cit.sala.patupi.service.CloudinaryService;
+import edu.cit.sala.patupi.repository.ServiceRepository;
+import edu.cit.sala.patupi.repository.UserRepository;
+import edu.cit.sala.patupi.service.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.util.List;
+
+
 import java.util.Map;
 
 @RestController
@@ -22,73 +22,102 @@ public class AppointmentController {
     private AppointmentRepository appointmentRepository;
 
     @Autowired
-    private AppointmentService appointmentService;
+    private UserRepository userRepository;
 
     @Autowired
-    private CloudinaryService cloudinaryService;
+    private ServiceRepository serviceRepository;
 
+    @Autowired
+    private AppointmentService appointmentService;
+
+    // Admin Dashboard Fetch
+@GetMapping
+public ResponseEntity<?> getAllAppointments() {
+    return ResponseEntity.ok(appointmentRepository.findAll());
+}
+
+    // Step 1: JSON only, no files
     @PostMapping("/step1")
-    public ResponseEntity<?> startBooking(
-            @RequestParam(value = "file", required = false) MultipartFile file,
-            @RequestParam(value = "photoUrl", required = false) String photoUrl,
-            @RequestParam("description") String description,
-            @RequestParam("customerId") Long customerId) {
+    public ResponseEntity<?> startBooking(@RequestBody Map<String, Object> payload) {
         try {
-            Appointment appointment = new Appointment();
-            appointment.setCustomer_id(customerId);
-            appointment.setDescription(description);
+            Long customerId = Long.parseLong(payload.get("customerId").toString());
+            User user = userRepository.findById(customerId)
+                    .orElseThrow(() -> new RuntimeException("User not found"));
 
-            if (file != null && !file.isEmpty()) {
-                String cloudUrl = cloudinaryService.uploadImage(file);
-                appointment.setReference_photo(cloudUrl);
-            } else {
-                appointment.setReference_photo(photoUrl);
+            Appointment appointment = new Appointment();
+            appointment.setUser(user);
+            appointment.setDescription((String) payload.get("description"));
+            
+            if (payload.get("serviceId") != null) {
+                appointment.setService_id(Integer.parseInt(payload.get("serviceId").toString()));
             }
 
             Appointment saved = appointmentRepository.save(appointment);
             return ResponseEntity.ok(Map.of("appointmentId", saved.getId()));
         } catch (Exception e) {
-            return ResponseEntity.status(500).body("Step 1 Failed: " + e.getMessage());
+            return ResponseEntity.status(500).body("Error: " + e.getMessage());
         }
     }
 
     @PutMapping("/confirm/{id}")
-    public ResponseEntity<?> confirmBooking(@PathVariable Long id, @RequestBody Map<String, Object> data) {
+    public ResponseEntity<?> confirmBooking(@PathVariable Long id, @RequestBody Appointment details) {
         return appointmentRepository.findById(id).map(appointment -> {
-            try {
-                appointment.setService_id(Integer.parseInt(data.get("serviceId").toString()));
-                appointment.setTotal_amount(new BigDecimal(data.get("totalAmount").toString()));
-
-                appointment.setScheduled_at(LocalDateTime.parse(data.get("scheduledAt").toString()));
-                
-                appointment.setPayment_method("CASH_ONSITE");
-                appointment.setStatus("CONFIRMED");
-
-                appointmentRepository.save(appointment);
-                return ResponseEntity.ok(Map.of("message", "Success"));
-            } catch (Exception e) {
-                return ResponseEntity.badRequest().body("Finalization error: " + e.getMessage());
+            appointment.setService_id(details.getService_id());
+            appointment.setScheduled_at(details.getScheduled_at());
+            
+            if (details.getService_id() != null) {
+                serviceRepository.findById(details.getService_id()).ifPresent(s -> {
+                    appointment.setTotal_amount(s.getBase_price());
+                });
             }
+            appointmentRepository.save(appointment);
+            return ResponseEntity.ok(Map.of("status", "success"));
         }).orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/available-slots")
-    public ResponseEntity<?> getOccupiedSlots(@RequestParam String date) {
-        try {
-            List<Appointment> booked = appointmentRepository.findBookedSlotsByDate(date);
-            return ResponseEntity.ok(booked);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Error fetching slots: " + e.getMessage());
-        }
+    @PutMapping("/{id}/assign")
+    public ResponseEntity<?> assignBarber(@PathVariable Long id, @RequestBody Map<String, Object> payload) {
+        return appointmentRepository.findById(id).map(appointment -> {
+            Long barberId = Long.parseLong(payload.get("barberId").toString());
+            appointment.setBarberId(barberId);
+            appointment.setStatus("CONFIRMED");
+            appointmentRepository.save(appointment);
+            return ResponseEntity.ok(Map.of("message", "Barber assigned"));
+        }).orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping("/customer/{id}")
     public ResponseEntity<?> getCustomerAppointments(@PathVariable Long id) {
-        try {
-            List<Map<String, Object>> appointments = appointmentService.getCustomerAppointmentsWithNames(id);
-            return ResponseEntity.ok(appointments);
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body("Error fetching appointments: " + e.getMessage());
-        }
+        return ResponseEntity.ok(appointmentService.getCustomerAppointmentsWithNames(id));
     }
+
+    // ADD THIS for the History page
+    @GetMapping("/all")
+    public ResponseEntity<?> getAllForAdmin() {
+    // We use the Service here because it converts the data into the DTO 
+    // that includes customerName, barberName, and service name.
+        return ResponseEntity.ok(appointmentService.getAllAppointmentsForAdmin());
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteAppointment(@PathVariable Long id) {
+        return appointmentRepository.findById(id).map(appointment -> {
+            appointmentRepository.delete(appointment);
+            return ResponseEntity.ok(Map.of("message", "Appointment deleted successfully"));
+        }).orElse(ResponseEntity.notFound().build());
+    }
+
+    @PutMapping("/{id}/cancel")
+    public ResponseEntity<?> cancelAppointment(@PathVariable Long id, @RequestParam Long customerId) {
+    return appointmentRepository.findById(id).map(appointment -> {
+        // Updated to use getUserId() instead of getId()
+        if (appointment.getUser() == null || !appointment.getUser().getUserId().equals(customerId)) {
+            return ResponseEntity.status(403).body(Map.of("error", "Unauthorized cancellation"));
+        }
+        
+        appointment.setStatus("CANCELLED");
+        appointmentRepository.save(appointment);
+        return ResponseEntity.ok(Map.of("message", "Appointment cancelled successfully"));
+    }).orElse(ResponseEntity.notFound().build());
+}
 }

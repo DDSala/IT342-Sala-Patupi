@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/IT342-Sala-Patupi.iml" filepath="$PROJECT_DIR$/.idea/IT342-Sala-Patupi.iml" />
-      <module fileurl="file://$PROJECT_DIR$/backend/patupi/patupi.iml" filepath="$PROJECT_DIR$/backend/patupi/patupi.iml" />
     </modules>
   </component>
 </project>

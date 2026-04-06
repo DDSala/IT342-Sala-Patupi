@@ -1,0 +1,36 @@
+/* Specific styles for Appointment History */
+.history-search-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.history-search-input {
+    background: #151510;
+    border: 1px solid #22221a;
+    padding: 10px 15px 10px 40px;
+    border-radius: 10px;
+    color: #fff;
+    width: 280px;
+    outline: none;
+}
+
+.history-search-input:focus {
+    border-color: #d4af37;
+}
+
+.search-icon-inside {
+    position: absolute;
+    left: 14px;
+    color: #444;
+}
+
+.service-gold {
+    color: #d4af37;
+    font-weight: 500;
+}
+
+/* Status Badges */
+.status-badge.confirmed, .status-badge.completed { background: #0a2410; color: #4caf50; }
+.status-badge.pending { background: #241a0a; color: #d4af37; }
+.status-badge.cancelled { background: #240a0a; color: #f44336; }

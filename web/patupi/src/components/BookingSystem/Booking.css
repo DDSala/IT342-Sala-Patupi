@@ -1,0 +1,477 @@
+/* --- Modal Layout --- */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    padding: 20px;
+}
+
+.booking-card {
+    width: 100%;
+    max-width: 900px;
+    height: 600px;
+    display: flex;
+    background: #121212;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+}
+
+/* --- Sidebar --- */
+.wizard-sidebar {
+    width: 280px;
+    background: #0a0a0a;
+    padding: 40px 30px;
+    border-right: 1px solid rgba(212, 175, 55, 0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-header h2 {
+    color: white;
+    font-size: 1.5rem;
+    margin-top: 5px;
+}
+
+.step-indicator {
+    margin-top: 50px;
+}
+
+.step-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+    opacity: 0.3;
+    transition: 0.4s ease;
+}
+
+.step-item.active {
+    opacity: 1;
+}
+
+.step-number {
+    width: 32px;
+    height: 32px;
+    border: 1.5px solid #D4AF37;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #D4AF37;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.active .step-number {
+    background: #D4AF37;
+    color: #000;
+}
+
+/* --- Main Content Area --- */
+.wizard-content {
+    flex: 1;
+    padding: 40px;
+    background: linear-gradient(135deg, #121212 0%, #1a1a1a 100%);
+    overflow-y: hidden; /* Keeps the main modal static */
+    display: flex;
+    flex-direction: column;
+}
+
+.step-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.gold-text {
+    color: #D4AF37;
+    letter-spacing: 1.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.subtitle-text {
+    color: #888;
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+}
+
+/* --- Services Grid (Custom Scrollbar for 10 items) --- */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin: 15px 0;
+    max-height: 280px; /* Crucial for fitting 10 items */
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.services-grid::-webkit-scrollbar {
+    width: 4px;
+}
+
+.services-grid::-webkit-scrollbar-thumb {
+    background: rgba(212, 175, 55, 0.3);
+    border-radius: 10px;
+}
+
+.services-grid::-webkit-scrollbar-thumb:hover {
+    background: #D4AF37;
+}
+
+/* --- Cards & Chips --- */
+.glass-panel {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.service-card, .time-chip {
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    color: #ccc;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.service-card:hover, .time-chip:hover {
+    border-color: rgba(212, 175, 55, 0.5);
+    background: rgba(212, 175, 55, 0.05);
+    transform: translateY(-2px);
+}
+
+.service-card.active, .time-chip.active {
+    background: #D4AF37 !important;
+    border-color: #D4AF37;
+    color: #000 !important;
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+}
+
+.service-name {
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.service-price {
+    font-size: 0.8rem;
+    color: #D4AF37;
+}
+
+.active .service-price {
+    color: #222;
+}
+
+/* --- Input Section --- */
+.input-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #bbb;
+    font-size: 0.85rem;
+    margin-bottom: 8px;
+    margin-top: 15px;
+}
+
+.glass-input-premium {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    color: white;
+    padding: 14px;
+    border-radius: 8px;
+    width: 100%;
+    outline: none;
+    transition: 0.3s;
+    font-family: inherit;
+}
+
+.glass-input-premium:focus {
+    border-color: #D4AF37;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+/* --- Time Selection --- */
+.time-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.time-chip {
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    font-weight: 600;
+}
+
+/* --- Buttons --- */
+.button-group {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.gold-button {
+    background: #D4AF37;
+    color: #000;
+    border: none;
+    padding: 12px 28px;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.gold-button:hover:not(:disabled) {
+    background: #ebc440;
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+}
+
+.back-button {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #aaa;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: 0.3s;
+}
+
+.back-button:hover {
+    color: white;
+    border-color: white;
+}
+
+/* --- Summary --- */
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding-bottom: 8px;
+}
+
+.summary-item span { color: #888; font-size: 0.9rem; }
+.summary-item p { color: white; font-weight: 500; margin: 0; }
+
+.total-row {
+    border-bottom: none;
+    margin-top: 20px;
+}
+
+.total-row p {
+    font-size: 1.4rem;
+}
+
+/* --- Datepicker Overrides --- */
+/* --- REACT DATEPICKER PREMIUM DARK THEME --- */
+
+/* 1. Main Container */
+.react-datepicker {
+    background-color: #1a1a1a !important; /* Slightly lighter than pure black */
+    border: 1px solid #D4AF37 !important; /* Patupi Gold Border */
+    color: #ffffff !important;
+    font-family: inherit;
+    border-radius: 12px !important;
+    overflow: hidden;
+}
+
+/* 2. Header (Month/Year and Arrows) */
+.react-datepicker__header {
+    background-color: #252525 !important;
+    border-bottom: 1px solid #333 !important;
+    padding-top: 12px !important;
+}
+
+.react-datepicker__current-month {
+    color: #D4AF37 !important; /* Gold Month Title */
+    font-weight: 700 !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* 3. Day Names (Su, Mo, Tu...) */
+.react-datepicker__day-name {
+    color: #888 !important; /* Muted gray for labels */
+    font-weight: 600 !important;
+}
+
+/* 4. Individual Days (The Numbers) */
+.react-datepicker__day {
+    color: #f0f0f0 !important; /* Bright white numbers */
+}
+
+.react-datepicker__day:hover {
+    background-color: rgba(212, 175, 55, 0.2) !important; /* Gold tint on hover */
+    border-radius: 50% !important;
+}
+
+/* 5. Selected Day */
+.react-datepicker__day--selected, 
+.react-datepicker__day--keyboard-selected {
+    background-color: #D4AF37 !important; /* Solid Gold for selection */
+    color: #000000 !important; /* Black text for contrast */
+    border-radius: 50% !important;
+    font-weight: 700 !important;
+}
+
+/* 6. Disabled/Past Days */
+.react-datepicker__day--disabled {
+    color: #444 !important; /* Dimmed out past dates */
+}
+
+/* 7. The Little Arrow on Top */
+.react-datepicker__triangle {
+    display: none; /* Removes the ugly white triangle tip */
+}
+
+/* 8. Navigation Arrows */
+.react-datepicker__navigation-icon::before {
+    border-color: #D4AF37 !important; /* Gold Arrows */
+}
+
+.success-circle {
+    background: #D4AF37;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    box-shadow: 0 0 30px rgba(212, 175, 55, 0.4); /* That "glow" effect */
+}
+
+.icon-box-muted {
+    background: rgba(212, 175, 55, 0.1);
+    padding: 10px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* --- Final Screen Specific Additions --- */
+
+/* This removes the 600px height limit when the booking is done */
+.booking-card.final-view {
+    display: block; 
+    max-width: 500px;
+    height: auto; 
+    min-height: auto;
+    overflow: visible;
+}
+
+.booking-card.final-view .wizard-content {
+    padding: 40px;
+    overflow-y: visible; /* Allows buttons to be seen */
+    height: auto;
+}
+
+.final-screen-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.success-title {
+    font-size: 1.8rem;
+    margin: 20px 0 10px 0;
+    text-align: center;
+}
+
+.center-text { text-align: center; }
+
+.detail-row {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.detail-label {
+    display: block;
+    font-size: 0.65rem;
+    color: #D4AF37;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.detail-value {
+    margin: 0;
+    font-size: 1.1rem;
+    color: white;
+}
+
+.detail-divider {
+    height: 1px;
+    background: rgba(212, 175, 55, 0.1);
+    margin: 15px 0;
+}
+
+.status-subtext {
+    margin: 0;
+    font-size: 0.85rem;
+    color: #888;
+}
+
+.final-actions {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+.w-100 { width: 100%; justify-content: center; }
+
+.view-details-link {
+    background: none;
+    border: none;
+    color: #888;
+    cursor: pointer;
+    font-size: 0.9rem;
+    padding: 5px;
+    transition: 0.3s;
+}
+
+.view-details-link:hover { color: white; }
+
+.support-text {
+    margin-top: 25px;
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.gold-link { color: #D4AF37; cursor: pointer; }
+
+/* Responsive Scroll Fix */
+@media (max-height: 700px) {
+    .modal-overlay {
+        align-items: flex-start;
+        overflow-y: auto;
+    }
+}

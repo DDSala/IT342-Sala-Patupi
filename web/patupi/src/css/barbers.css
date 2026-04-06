@@ -1,0 +1,209 @@
+/* Reuse your admin-dashboard variables or colors */
+.admin-container {
+    background-color: #0a0a0a; /* Dark background from screenshot */
+    color: #ffffff;
+}
+
+.add-barber-btn-premium {
+    background-color: #d4af37; /* Gold color from your Login button */
+    color: #000;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.add-barber-btn-premium:hover {
+    background-color: #bfa030;
+}
+
+/* Match the Table styling from your screenshot */
+.admin-section-card {
+    background: #141414;
+    border: 1px solid #222;
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.queue-table th {
+    color: #666;
+    border-bottom: 1px solid #222;
+    padding: 12px;
+    font-size: 12px;
+}
+
+.cust-name {
+    color: #fff;
+    font-weight: 600;
+}
+
+.status-badge.confirmed {
+    background: rgba(40, 167, 69, 0.1);
+    color: #28a745;
+    border: 1px solid #28a745;
+}
+
+/* 1. Modal Overlay - Darkened backdrop */
+.barber-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85); /* Heavy blur/darken effect */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+}
+
+/* 2. Modal Box - Matches your Dashboard cards */
+.barber-modal-box {
+    background: #141414; /* Deep charcoal */
+    border: 1px solid #222; /* Subtle border */
+    padding: 30px;
+    border-radius: 16px;
+    width: 450px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+}
+
+.barber-modal-box h2 {
+    color: #fff;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+/* 3. Input Styling - Dark theme inputs */
+.input-group {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group label {
+    color: #888;
+    font-size: 0.85rem;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.input-group input {
+    background: #1a1a1a;
+    border: 1px solid #333;
+    color: #fff;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: #d4af37; /* Gold focus border */
+}
+
+/* 4. Layout Row (First/Last Name side-by-side) */
+.input-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+/* 5. Buttons - Matching the Login/Admin style */
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+.btn-cancel {
+    background: transparent;
+    color: #888;
+    border: 1px solid #333;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-cancel:hover {
+    background: #222;
+    color: #fff;
+}
+
+.btn-save {
+    background: #d4af37; /* Gold from your screenshot */
+    color: #000;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.btn-save:hover {
+    background: #bfa030;
+    transform: translateY(-1px);
+}
+
+.action-icon-edit {
+    cursor: pointer;
+    color: #888;
+    transition: color 0.2s;
+}
+
+.action-icon-edit:hover {
+    color: #d4af37; /* Gold focus */
+}
+
+.action-icon-delete {
+    cursor: pointer;
+    color: #888;
+    transition: color 0.2s;
+}
+
+.action-icon-delete:hover {
+    color: #ff4d4d; /* Red for delete */
+}
+
+/* Update the container for the nav items */
+.admin-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 8px; /* Space between items */
+    padding: 0 12px; /* Ensure there is room for the background box */
+}
+
+/* Base style for all items */
+.admin-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px; /* Consistent internal spacing */
+    border-radius: 8px;
+    color: #94a3b8; /* Muted gray for inactive */
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 100%; /* Fill the sidebar width */
+}
+
+/* The Active State Fix */
+.admin-nav-item.active {
+    background-color: rgba(234, 179, 8, 0.1); /* Subtle yellow tint */
+    color: #eab308; /* Your Patupi gold/yellow */
+}
+
+/* Ensure icons don't shrink or shift */
+.admin-nav-item svg {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

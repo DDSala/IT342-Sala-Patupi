@@ -3,7 +3,9 @@ package edu.cit.sala.patupi.controller;
 import edu.cit.sala.patupi.entity.Service;
 import edu.cit.sala.patupi.repository.ServiceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -14,8 +16,26 @@ public class ServiceController {
     @Autowired
     private ServiceRepository serviceRepository;
 
+    /**
+     * Fetches all available services for the Step 1 selection grid.
+     */
     @GetMapping
-    public List<Service> getMenu() {
-        return serviceRepository.findAll();
+    public ResponseEntity<List<Service>> getMenu() {
+        List<Service> services = serviceRepository.findAll();
+        if (services.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(services);
+    }
+
+    /**
+     * Fetches a single service by ID. 
+     * Useful if you need to re-verify price/details in Step 3.
+     */
+    @GetMapping("/{id}")
+    public ResponseEntity<Service> getServiceById(@PathVariable Integer id) {
+        return serviceRepository.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 }

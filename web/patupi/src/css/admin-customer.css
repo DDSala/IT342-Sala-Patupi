@@ -1,0 +1,25 @@
+/* Specific styles for Customer Directory */
+.directory-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.action-buttons-flex {
+    display: flex;
+    gap: 15px;
+}
+
+.icon-btn-gray { color: #666; cursor: pointer; transition: 0.2s; }
+.icon-btn-gray:hover { color: #fff; }
+
+.icon-btn-red { color: #e63946; cursor: pointer; opacity: 0.7; transition: 0.2s; }
+.icon-btn-red:hover { opacity: 1; }
+
+.status-dot-green {
+    width: 8px;
+    height: 8px;
+    background-color: #4caf50;
+    border-radius: 50%;
+    display: inline-block;
+}
