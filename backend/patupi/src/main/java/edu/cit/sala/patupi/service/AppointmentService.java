@@ -37,7 +37,6 @@ public class AppointmentService {
             map.put("status", app.getStatus());
             map.put("scheduledAt", app.getScheduled_at());
             map.put("description", app.getDescription());
-            map.put("photo", app.getReference_photo());
 
             if (app.getService_id() != null && app.getService_id() != 0) {
                 serviceRepository.findById(app.getService_id()).ifPresent(s -> {
@@ -72,7 +71,6 @@ public class AppointmentService {
         dto.setStatus(app.getStatus());
         dto.setScheduledAt(app.getScheduled_at());
         dto.setDescription(app.getDescription());
-        dto.setReferencePhoto(app.getReference_photo());
 
         // Map Customer Name
         if (app.getUser() != null) {

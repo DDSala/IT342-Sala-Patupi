@@ -30,9 +30,6 @@ public class Appointment {
     @Column(name = "status")
     private String status = "PENDING";
 
-    @Column(name = "reference_photo")
-    private String reference_photo; // Keeping this so code doesn't break, will be null
-
     @Column(name = "description")
     private String description;
 
@@ -72,8 +69,6 @@ public class Appointment {
     public void setService_id(Integer service_id) { this.service_id = service_id; }
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
-    public String getReference_photo() { return reference_photo; }
-    public void setReference_photo(String reference_photo) { this.reference_photo = reference_photo; }
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
     public String getPayment_method() { return payment_method; }
