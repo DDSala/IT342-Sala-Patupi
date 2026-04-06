@@ -147,10 +147,12 @@ const Dashboard = () => {
         )}
       </aside>
 
+
       {/* Main Panel */}
       <main className="main-content">
         <header className="content-header">
           <div className="header-right">
+            
             {/* Real-time Weather Display */}
             <span className="weather">
               {getWeatherIcon()} {weather.temp}°C
@@ -166,6 +168,7 @@ const Dashboard = () => {
             </div>
           </div>
         </header>
+
 
         {/* Active Appointment Section */}
         <section className="dashboard-section">
@@ -224,6 +227,7 @@ const Dashboard = () => {
           )}
         </section>
 
+
         {/* Upcoming & History Tables */}
         <div className="dashboard-grid">
           <div className="grid-card glass-panel">
@@ -246,6 +250,7 @@ const Dashboard = () => {
               </table>
             </div>
           </div>
+
 
           <div className="grid-card glass-panel">
             <div className="card-header-flex"><h4>History</h4></div>
@@ -281,6 +286,7 @@ const Dashboard = () => {
         </footer>
       </main>
 
+
       {/* Modals */}
       <BookingWizard 
         isOpen={isBookingOpen} 
@@ -298,6 +304,8 @@ const Dashboard = () => {
       />
     </div>
   );
+
+
 };
 
 export default Dashboard;

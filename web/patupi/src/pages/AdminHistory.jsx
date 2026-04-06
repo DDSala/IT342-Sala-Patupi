@@ -187,6 +187,8 @@ const AdminHistory = () => {
             )}
         </div>
     );
+
+    
 };
 
 export default AdminHistory;

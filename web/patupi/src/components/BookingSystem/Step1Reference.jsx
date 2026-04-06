@@ -16,6 +16,7 @@ const Step1Reference = ({ onNext, customerId }) => {
             .catch(err => console.error("Error fetching services:", err));
     }, []);
 
+
 const handleNext = async () => {
     setLoading(true);
 
@@ -53,6 +54,7 @@ const handleNext = async () => {
             setLoading(false);
         }
     };
+
 
     return (
         <div className="step-container">
@@ -102,6 +104,8 @@ const handleNext = async () => {
             </div>
         </div>
     );
+
+    
 };
 
 export default Step1Reference;

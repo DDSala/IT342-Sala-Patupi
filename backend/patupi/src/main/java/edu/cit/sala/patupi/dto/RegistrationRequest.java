@@ -1,6 +1,7 @@
 package edu.cit.sala.patupi.dto;
 
 public class RegistrationRequest {
+
     private String fullName;
     private String email;
     private String location;
@@ -17,4 +18,6 @@ public class RegistrationRequest {
 
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
+
+    
 }

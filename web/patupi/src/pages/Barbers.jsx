@@ -102,6 +102,7 @@ const Barbers = () => {
         setFormData({ firstName: '', lastName: '', email: '', address: '' });
     };
 
+    
     return (
         <div className="admin-container">
             <aside className="admin-sidebar">
@@ -148,6 +149,7 @@ const Barbers = () => {
                         </button>
             </aside>
 
+
             <main className="admin-content">
                 <header className="admin-top-bar">
                     <div>
@@ -189,6 +191,7 @@ const Barbers = () => {
                 </section>
             </main>
 
+
             {/* REGISTER/EDIT MODAL */}
             {showModal && (
                 <div className="barber-modal-overlay">
@@ -209,6 +212,7 @@ const Barbers = () => {
                     </div>
                 </div>
             )}
+
 
             {/* SIGN OUT MODAL */}
             {showLogoutModal && (
@@ -232,6 +236,8 @@ const Barbers = () => {
             )}
         </div>
     );
+
+
 };
 
 export default Barbers;

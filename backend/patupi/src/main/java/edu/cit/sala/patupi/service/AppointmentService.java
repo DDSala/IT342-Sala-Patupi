@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 @Service
 public class AppointmentService {
 
+    
     @Autowired
     private AppointmentRepository appointmentRepository;
 
@@ -26,6 +27,7 @@ public class AppointmentService {
 
     @Autowired
     private UserRepository userRepository;
+
 
     public List<Map<String, Object>> getCustomerAppointmentsWithNames(Long customerId) {
         List<Appointment> appointments = appointmentRepository.findByCustomerId(customerId);
@@ -53,9 +55,11 @@ public class AppointmentService {
         return enrichedList;
     }
 
+
     public boolean isCustomerBusy(Long customerId) {
         return appointmentRepository.hasActiveAppointment(customerId);
     }
+
 
     public List<AppointmentResponseDTO> getAllAppointmentsForAdmin() {
         List<Appointment> appointments = appointmentRepository.findAll();
@@ -63,6 +67,7 @@ public class AppointmentService {
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
     }
+
 
     private AppointmentResponseDTO convertToDTO(Appointment app) {
         AppointmentResponseDTO dto = new AppointmentResponseDTO();
@@ -95,4 +100,6 @@ public class AppointmentService {
 
         return dto;
     }
+
+
 }

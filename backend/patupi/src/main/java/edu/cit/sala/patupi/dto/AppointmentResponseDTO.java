@@ -3,6 +3,7 @@ package edu.cit.sala.patupi.dto;
 import java.time.LocalDateTime;
 
 public class AppointmentResponseDTO {
+    
     private Long appointmentId;
     private String customerName;
     private Long barberId;
@@ -13,9 +14,7 @@ public class AppointmentResponseDTO {
     private String status;
     private String referencePhoto; 
 
-
     public AppointmentResponseDTO() {}
-
 
     public Long getAppointmentId() { return appointmentId; }
     public void setAppointmentId(Long appointmentId) { this.appointmentId = appointmentId; }

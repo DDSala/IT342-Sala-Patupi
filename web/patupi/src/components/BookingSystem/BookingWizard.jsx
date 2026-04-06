@@ -108,6 +108,7 @@ useEffect(() => {
                         </button>
                     </div>
                 )}
+                
 
                 <div className="wizard-content">
                     {step === 1 && (
@@ -143,6 +144,8 @@ useEffect(() => {
             </div>
         </div>
     );
+
+
 };
 
 export default BookingWizard;

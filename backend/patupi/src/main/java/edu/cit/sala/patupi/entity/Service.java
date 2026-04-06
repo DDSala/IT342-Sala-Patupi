@@ -1,12 +1,16 @@
 package edu.cit.sala.patupi.entity;
 
+
 import com.fasterxml.jackson.annotation.JsonProperty; 
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 
+
+
 @Entity
 @Table(name = "services")
 public class Service {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "service_id")
@@ -36,4 +40,6 @@ public class Service {
     
     public Integer getDuration_minutes() { return duration_minutes; }
     public void setDuration_minutes(Integer duration_minutes) { this.duration_minutes = duration_minutes; }
+
+
 }

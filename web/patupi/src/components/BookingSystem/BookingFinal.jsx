@@ -1,6 +1,8 @@
 import React from 'react';
 import { CheckCircle2, Calendar, Clock, Info } from 'lucide-react';
 
+
+
 const BookingFinal = ({ data, onComplete }) => {
     return (
         <div className="final-screen-wrapper">
@@ -52,6 +54,8 @@ const BookingFinal = ({ data, onComplete }) => {
             </p>
         </div>
     );
+
+
 };
 
 export default BookingFinal;

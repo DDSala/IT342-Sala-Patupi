@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class EmailService {
 
+    
     @Autowired
     private JavaMailSender mailSender;
+
 
     public void sendOtpEmail(String toEmail, String otp) {
         SimpleMailMessage message = new SimpleMailMessage();
@@ -20,4 +22,6 @@ public class EmailService {
                         "\n\nThis code will expire in 5 minutes.");
         mailSender.send(message);
     }
+
+
 }

@@ -13,6 +13,7 @@ const Step2Schedule = ({ onNext, onBack }) => {
         "01:00 PM", "02:00 PM", "03:00 PM", 
         "04:00 PM", "05:00 PM", "06:00 PM"
     ];
+    
 
     const handleNext = () => {
         if (!startDate || !selectedTime) {
@@ -79,6 +80,8 @@ const Step2Schedule = ({ onNext, onBack }) => {
             </div>
         </div>
     );
+
+
 };
 
 export default Step2Schedule;

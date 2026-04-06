@@ -135,4 +135,6 @@ public ResponseEntity<?> verifyOtp(@RequestBody Map<String, String> request) {
         return ResponseEntity.status(500).body(Map.of("message", "Verification Error: " + e.getMessage()));
     }
 }
+
+
 }

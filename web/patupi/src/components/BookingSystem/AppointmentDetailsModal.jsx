@@ -64,6 +64,7 @@ const AppointmentDetailsModal = ({ isOpen, onClose, appointment, onCancel }) => 
               </div>
             </div>
 
+
             <div className="data-item">
               <Clock size={18} className="icon-gold" />
               <div className="data-stack">
@@ -78,6 +79,7 @@ const AppointmentDetailsModal = ({ isOpen, onClose, appointment, onCancel }) => 
               </div>
             </div>
           </div>
+
 
           {/* SUMMARY / AMOUNT SECTION */}
           <div className="info-block receipt-summary">

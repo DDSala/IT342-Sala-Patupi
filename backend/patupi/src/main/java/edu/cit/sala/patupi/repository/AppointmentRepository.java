@@ -19,11 +19,15 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
     @Query("SELECT a FROM Appointment a WHERE a.user.userId = :customerId ORDER BY a.scheduled_at DESC")
     List<Appointment> findByCustomerId(@Param("customerId") Long customerId);
 
+
     @Query("SELECT COUNT(a) > 0 FROM Appointment a WHERE a.user.userId = :customerId AND a.status NOT IN ('FINISHED', 'CANCELLED')")
     boolean hasActiveAppointment(@Param("customerId") Long customerId);
+
 
     @Modifying
     @Transactional
     @Query("UPDATE Appointment a SET a.status = 'CANCELLED' WHERE a.id = :id AND a.user.userId = :customerId")
     int cancelAppointment(@Param("id") Long id, @Param("customerId") Long customerId);
+
+
 }

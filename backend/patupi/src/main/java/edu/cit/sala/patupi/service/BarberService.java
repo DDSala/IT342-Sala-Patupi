@@ -12,6 +12,7 @@ import java.util.Map;
 @Service
 public class BarberService {
 
+
     @Autowired
     private UserRepository userRepository;
 
@@ -39,4 +40,6 @@ public class BarberService {
    
         userRepository.save(user);
     }
+
+    
 }

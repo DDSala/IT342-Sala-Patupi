@@ -152,6 +152,7 @@ const AdminCustomer = () => {
                 </section>
             </main>
 
+
             {/* SIGN OUT MODAL */}
             {showLogoutModal && (
                 <div className="modern-modal-overlay">
@@ -174,6 +175,8 @@ const AdminCustomer = () => {
             )}
         </div>
     );
+
+
 };
 
 export default AdminCustomer;

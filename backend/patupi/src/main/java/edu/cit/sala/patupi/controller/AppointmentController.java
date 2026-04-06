@@ -117,4 +117,6 @@ public class AppointmentController {
         return ResponseEntity.ok(Map.of("message", "Appointment cancelled successfully"));
     }).orElse(ResponseEntity.notFound().build());
 }
+
+
 }

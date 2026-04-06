@@ -10,5 +10,8 @@ import edu.cit.sala.patupi.entity.BarberProfile;
 @Repository
 public interface BarberProfileRepository extends JpaRepository<BarberProfile, Long> {
 
+    
     List<BarberProfile> findByStatus(String status);
+
+
 }
