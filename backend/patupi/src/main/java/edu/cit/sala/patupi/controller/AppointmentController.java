@@ -9,6 +9,8 @@ import edu.cit.sala.patupi.service.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import edu.cit.sala.patupi.dto.AppointmentResponseDTO;
+import edu.cit.sala.patupi.service.NotificationFactory;
 
 
 import java.util.Map;
@@ -30,6 +32,9 @@ public class AppointmentController {
     @Autowired
     private AppointmentService appointmentService;
 
+    @Autowired
+    private NotificationFactory notificationFactory;
+
 
     @GetMapping
     public ResponseEntity<?> getAllAppointments() {
@@ -37,26 +42,34 @@ public class AppointmentController {
     }
 
     @PostMapping("/step1")
-    public ResponseEntity<?> startBooking(@RequestBody Map<String, Object> payload) {
-        try {
-            Long customerId = Long.parseLong(payload.get("customerId").toString());
-            User user = userRepository.findById(customerId)
-                    .orElseThrow(() -> new RuntimeException("User not found"));
+public ResponseEntity<AppointmentResponseDTO> startBooking(@RequestBody Map<String, Object> payload) {
+    try {
+        Long customerId = Long.parseLong(payload.get("customerId").toString());
+        User user = userRepository.findById(customerId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
 
-            Appointment appointment = new Appointment();
-            appointment.setUser(user);
-            appointment.setDescription((String) payload.get("description"));
-            
-            if (payload.get("serviceId") != null) {
-                appointment.setService_id(Integer.parseInt(payload.get("serviceId").toString()));
-            }
-
-            Appointment saved = appointmentRepository.save(appointment);
-            return ResponseEntity.ok(Map.of("appointmentId", saved.getId()));
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body("Error: " + e.getMessage());
+        Appointment appointment = new Appointment();
+        appointment.setUser(user);
+        appointment.setDescription((String) payload.get("description"));
+        
+        if (payload.get("serviceId") != null) {
+            appointment.setService_id(Integer.parseInt(payload.get("serviceId").toString()));
         }
+
+        Appointment saved = appointmentRepository.save(appointment);
+
+        // STRUCTURAL PATTERN: DTO Pattern Implementation
+        AppointmentResponseDTO dto = new AppointmentResponseDTO();
+        dto.setAppointmentId(saved.getId()); 
+        dto.setCustomerName(user.getFullName());
+        dto.setStatus(saved.getStatus());
+        dto.setDescription(saved.getDescription());
+        
+        return ResponseEntity.ok(dto);
+    } catch (Exception e) {
+        return ResponseEntity.status(500).build();
     }
+}
 
     @PutMapping("/confirm/{id}")
     public ResponseEntity<?> confirmBooking(@PathVariable Long id, @RequestBody Appointment details) {
@@ -104,17 +117,29 @@ public class AppointmentController {
         }).orElse(ResponseEntity.notFound().build());
     }
 
-    @PutMapping("/{id}/cancel")
-    public ResponseEntity<?> cancelAppointment(@PathVariable Long id, @RequestParam Long customerId) {
+@PutMapping("/{id}/cancel")
+public ResponseEntity<?> cancelAppointment(@PathVariable Long id, @RequestParam Long customerId) {
     return appointmentRepository.findById(id).map(appointment -> {
-
         if (appointment.getUser() == null || !appointment.getUser().getUserId().equals(customerId)) {
-            return ResponseEntity.status(403).body(Map.of("error", "Unauthorized cancellation"));
+            return ResponseEntity.status(403).body(Map.of("error", "Unauthorized"));
         }
         
         appointment.setStatus("CANCELLED");
         appointmentRepository.save(appointment);
-        return ResponseEntity.ok(Map.of("message", "Appointment cancelled successfully"));
+
+        // BEHAVIORAL PATTERN: Using the Factory to notify the user
+        try {
+            notificationFactory.sendNotification(
+                "EMAIL", 
+                appointment.getUser().getEmail(), 
+                "Patupi: Appointment Cancelled", 
+                "Hi " + appointment.getUser().getFullName() + ", your appointment has been successfully cancelled."
+            );
+        } catch (Exception e) {
+            System.out.println("Email failed but appointment was cancelled.");
+        }
+
+        return ResponseEntity.ok(Map.of("message", "Cancelled and notification sent"));
     }).orElse(ResponseEntity.notFound().build());
 }
 }

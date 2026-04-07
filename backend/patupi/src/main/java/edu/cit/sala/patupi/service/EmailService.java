@@ -20,4 +20,14 @@ public class EmailService {
                         "\n\nThis code will expire in 5 minutes.");
         mailSender.send(message);
     }
+
+   
+    public void sendSimpleEmail(String toEmail, String subject, String body) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom("patupi.barbershop@gmail.com");
+        message.setTo(toEmail);
+        message.setSubject(subject);
+        message.setText(body);
+        mailSender.send(message);
+    }
 }

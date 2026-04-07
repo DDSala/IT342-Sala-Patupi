@@ -61,20 +61,29 @@ public class Appointment {
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
+
     public User getUser() { return user; }
     public void setUser(User user) { this.user = user; }
+
     public Long getBarberId() { return barberId; }
     public void setBarberId(Long barberId) { this.barberId = barberId; }
+
     public Integer getService_id() { return service_id; }
     public void setService_id(Integer service_id) { this.service_id = service_id; }
+
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
+
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
+
     public String getPayment_method() { return payment_method; }
     public void setPayment_method(String payment_method) { this.payment_method = payment_method; }
+
     public BigDecimal getTotal_amount() { return total_amount; }
     public void setTotal_amount(BigDecimal total_amount) { this.total_amount = total_amount; }
+
     public LocalDateTime getScheduled_at() { return scheduled_at; }
     public void setScheduled_at(LocalDateTime scheduled_at) { this.scheduled_at = scheduled_at; }
+    
 }
