@@ -1,5 +1,6 @@
 package com.sala.patupi
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
@@ -24,29 +25,35 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var etPassword: EditText
     private lateinit var btnLogin: Button
     private lateinit var tvSignUp: TextView
-    private val loginUrl = "http://192.168.1.4:8080/api/auth/login"
+
+    // Ensure this IP matches your current machine IP (192.168.1.9)
+    private val loginUrl = "http://192.168.1.9:8080/api/auth/login"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
 
+        // --- AUTO-LOGIN CHECK ---
+        val sharedPref = getSharedPreferences("PatupiPrefs", Context.MODE_PRIVATE)
+        if (sharedPref.contains("user")) {
+            startActivity(Intent(this, DashboardActivity::class.java))
+            finish()
+            return
+        }
+
+        setContentView(R.layout.activity_login)
 
         etEmail = findViewById(R.id.etLoginEmail)
         etPassword = findViewById(R.id.etLoginPassword)
         btnLogin = findViewById(R.id.btnLogin)
         tvSignUp = findViewById(R.id.tvSignUp)
 
-
         setupSignUpSpan()
-
         btnLogin.setOnClickListener { loginUser() }
 
         tvSignUp.setOnClickListener {
-            val intent = Intent(this, RegisterActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, RegisterActivity::class.java))
         }
     }
-
 
     private fun setupSignUpSpan() {
         val text = "Don't have an account? Sign up"
@@ -56,10 +63,7 @@ class LoginActivity : AppCompatActivity() {
         if (start != -1) {
             val end = start + "Sign up".length
             val goldColor = ContextCompat.getColor(this, R.color.patupi_gold)
-
-
             ss.setSpan(ForegroundColorSpan(goldColor), start, end, 0)
-
             ss.setSpan(StyleSpan(Typeface.BOLD), start, end, 0)
         }
         tvSignUp.text = ss
@@ -81,7 +85,8 @@ class LoginActivity : AppCompatActivity() {
 
         val request = JsonObjectRequest(Request.Method.POST, loginUrl, loginData,
             { response ->
-
+                // IMPORTANT: Save the user data before moving to the next screen
+                saveUserSession(response)
                 showSuccessDialog(response)
             },
             { error ->
@@ -89,13 +94,22 @@ class LoginActivity : AppCompatActivity() {
                 val status = error.networkResponse?.statusCode
                 val message = when(status) {
                     401 -> "Invalid email or password."
-                    else -> "Cannot connect to server. Check your connection."
+                    else -> "Cannot connect to server at $loginUrl. Check your IP/Firewall."
                 }
                 showError(message)
             }
         )
-
         Volley.newRequestQueue(this).add(request)
+    }
+
+    private fun saveUserSession(response: JSONObject) {
+        val sharedPref = getSharedPreferences("PatupiPrefs", Context.MODE_PRIVATE)
+        with(sharedPref.edit()) {
+            // We store the whole JSON string so ProfileActivity can parse it
+            putString("user", response.toString())
+            apply()
+        }
+        Log.d("PATUPI_DEBUG", "Session saved successfully")
     }
 
     private fun showSuccessDialog(response: JSONObject) {
@@ -106,7 +120,6 @@ class LoginActivity : AppCompatActivity() {
             .setMessage("Welcome back to Patupi, $name!")
             .setPositiveButton("Let's Go") { _, _ ->
                 val intent = Intent(this, DashboardActivity::class.java)
-                intent.putExtra("USER_NAME", name)
                 startActivity(intent)
                 finish()
             }

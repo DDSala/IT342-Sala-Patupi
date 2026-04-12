@@ -231,7 +231,7 @@ const Dashboard = () => {
             <div className="table-wrapper">
               <table className="data-table-minimal">
                 <thead>
-                  <tr><th>DATE</th><th>TIME</th><th>DESCRIPTION</th><th>STATUS</th></tr>
+                  <tr><th>DATE</th><th>TIME</th><th>SERVICE</th><th>STATUS</th></tr>
                 </thead>
                 <tbody>
                   {upcoming.slice(0, 3).map((app) => (
@@ -248,11 +248,11 @@ const Dashboard = () => {
           </div>
 
           <div className="grid-card glass-panel">
-            <div className="card-header-flex"><h4>History</h4></div>
+            <div className="card-header-flex"><h4>Recent Activity</h4></div>
             <div className="table-wrapper">
               <table className="data-table-minimal">
                 <thead>
-                  <tr><th>DATE</th><th>TIME</th><th>DESCRIPTION</th><th>RATING</th><th>STATUS</th></tr>
+                  <tr><th>DATE</th><th>TIME</th><th>SERVICE</th><th>RATING</th><th>STATUS</th></tr>
                 </thead>
                 <tbody>
                   {history.slice(0, 3).map((app) => (

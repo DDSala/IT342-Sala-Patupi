@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/patupi_bg"
@@ -26,10 +27,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:layout_marginBottom="40dp"
-            android:text="Patupi."
-            android:textColor="@color/white"
+            android:text="Patupi"
+            android:textColor="#D4AF37"
             android:textSize="36sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:ignore="HardcodedText" />
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/PatupiInputBox"
@@ -69,6 +71,7 @@
             android:layout_marginBottom="24dp"
             android:text="Forgot Password?"
             android:textColor="@color/patupi_gold" />
+
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnLogin"

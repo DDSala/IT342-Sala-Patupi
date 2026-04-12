@@ -1,4 +1,13 @@
 <resources>
     <string name="app_name">patupi</string>
     <string name="signup_text">Don\'t have an account? <font color="#D4AF37">Sign up</font></string>
+    <string name="profile_initial_placeholder">C</string>
+    <string name="loading_text">Loading...</string>
+    <string name="placeholder_dots">...</string>
+    <string name="edit_account_details">Edit Account Details</string>
+    <string name="security_password">Security &amp; Password</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="content_desc_profile_pic">Profile Picture</string>
+    <string name="content_desc_back">Back Button</string>
+    <string name="sign_up_text">Don\'t have an account? <font color="#D4AF37"><b>Sign up</b></font></string>
 </resources>

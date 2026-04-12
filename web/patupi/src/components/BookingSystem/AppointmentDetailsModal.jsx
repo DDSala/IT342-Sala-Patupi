@@ -103,11 +103,6 @@ const AppointmentDetailsModal = ({ isOpen, onClose, appointment, onCancel }) => 
               </span>
             </div>
           </div>
-
-          <div className="modal-policy-notice">
-            <Info size={16} />
-            <p>Please arrive 5 minutes early. Late arrivals may be subject to rescheduling.</p>
-          </div>
         </div>
 
         <div className="modal-actions-area">
