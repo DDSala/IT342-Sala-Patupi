@@ -41,7 +41,7 @@ public class AppointmentController {
         return ResponseEntity.ok(appointmentRepository.findAll());
     }
 
-    @PostMapping("/step1")
+@PostMapping("/step1")
 public ResponseEntity<AppointmentResponseDTO> startBooking(@RequestBody Map<String, Object> payload) {
     try {
         Long customerId = Long.parseLong(payload.get("customerId").toString());
