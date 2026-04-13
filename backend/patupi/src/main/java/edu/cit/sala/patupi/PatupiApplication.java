@@ -13,8 +13,4 @@ public class PatupiApplication {
         SpringApplication.run(PatupiApplication.class, args);
     }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 }

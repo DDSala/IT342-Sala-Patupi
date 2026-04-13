@@ -4,15 +4,18 @@ import edu.cit.sala.patupi.entity.User;
 import edu.cit.sala.patupi.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AuthService {
 
+
     @Autowired
     private UserRepository userRepository;
 
-    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    @Autowired // Here we Used the shared bean from SecurityConfig
+    private PasswordEncoder passwordEncoder;
 
     public User registerProfile(User user) {
   
