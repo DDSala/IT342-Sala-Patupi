@@ -23,6 +23,8 @@ const Login = () => {
       const user = JSON.parse(loggedInUser);
       navigate(user.roleId === 1 ? '/admin' : '/dashboard', { replace: true });
     }
+
+
   }, [navigate]);
 
   const handleLogin = async (e) => {
@@ -47,6 +49,8 @@ const Login = () => {
     }
   };
 
+
+  /*Google Login*/
   const handleGoogleLogin = async (credential) => {
     setLoading(true);
     setErrorMessage('');
