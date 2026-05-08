@@ -1,15 +1,18 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import Dashboard from './pages/Dashboard'; 
-import Profile from './pages/Profile';
-import AdminDashboard from './pages/AdminDashboard'; 
-import AdminCustomer from './pages/AdminCustomer'; 
-import AdminHistory from './pages/AdminHistory';   
-import ProtectedRoute from './components/ProtectedRoute';
-import Barbers from './pages/Barbers';
 
+import Login from './features/authentication/Login';
+import Register from './features/authentication/Register';
+import Profile from './features/authentication/Profile';
+
+import Dashboard from './features/appointments/Dashboard'; 
+import AdminDashboard from './features/appointments/AdminDashboard'; 
+import AdminHistory from './features/appointments/AdminHistory'; 
+
+import AdminCustomer from './features/services/AdminCustomer'; 
+import Barbers from './features/services/Barbers';
+
+import ProtectedRoute from './common/components/ProtectedRoute';
 function App() {
   useEffect(() => {
     const handleTabClose = () => {
