@@ -41,6 +41,7 @@ class DashboardActivity : AppCompatActivity() {
     private lateinit var historyContainer: LinearLayout
     private lateinit var cardActiveTicket: MaterialCardView
     private lateinit var btnCancelTicket: MaterialButton
+    private lateinit var btnBookNow: MaterialButton // Kept it uniform with your view variables
 
     private var currentActiveId: Int? = null
     private var activeAppointmentJson: JSONObject? = null
@@ -73,6 +74,7 @@ class DashboardActivity : AppCompatActivity() {
         historyContainer = findViewById(R.id.historyContainer)
         cardActiveTicket = findViewById(R.id.cardActiveTicket)
         btnCancelTicket = findViewById(R.id.btnCancelTicket)
+        btnBookNow = findViewById(R.id.btnBookNow) // Safely bound your XML button
     }
 
     private fun setupListeners() {
@@ -86,6 +88,11 @@ class DashboardActivity : AppCompatActivity() {
 
         findViewById<MaterialCardView>(R.id.btnProfile).setOnClickListener {
             startActivity(Intent(this, ProfileActivity::class.java))
+        }
+
+        // Redirects to the step-by-step booking activity (Back navigation is implicit)
+        btnBookNow.setOnClickListener {
+            startActivity(Intent(this, BookingActivity::class.java))
         }
     }
 
@@ -194,7 +201,6 @@ class DashboardActivity : AppCompatActivity() {
     }
 
     private fun handleCancel(id: Int) {
-        // 1. Get the userId from SharedPrefs (just like Web uses sessionStorage)
         val sharedPref = getSharedPreferences("PatupiPrefs", Context.MODE_PRIVATE)
         val userJson = sharedPref.getString("user", null) ?: return
         val userObj = JSONObject(userJson)
@@ -204,16 +210,14 @@ class DashboardActivity : AppCompatActivity() {
             .setTitle("Cancel Appointment")
             .setMessage("Are you sure you want to cancel this booking?")
             .setPositiveButton("Yes") { _, _ ->
-                // 2. Add the ?customerId= parameter to match the Web implementation
                 val url = "$apiBase/$id/cancel?customerId=$userId"
 
                 val req = JsonObjectRequest(Request.Method.PUT, url, null,
                     { _ ->
                         Toast.makeText(this, "Appointment Cancelled", Toast.LENGTH_SHORT).show()
-                        fetchData() // Refresh UI
+                        fetchData()
                     },
                     { error ->
-                        // Log the full error to see if it's a 400 or 404
                         val response = error.networkResponse
                         Log.e("PATUPI_CANCEL", "Error Code: ${response?.statusCode} | Message: ${error.message}")
                         Toast.makeText(this, "Failed to cancel. Check server.", Toast.LENGTH_SHORT).show()
