@@ -1,11 +1,12 @@
 package com.sala.patupi
 
 import android.app.AlertDialog
-import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.Gravity
 import android.view.View
@@ -41,11 +42,24 @@ class DashboardActivity : AppCompatActivity() {
     private lateinit var historyContainer: LinearLayout
     private lateinit var cardActiveTicket: MaterialCardView
     private lateinit var btnCancelTicket: MaterialButton
-    private lateinit var btnBookNow: MaterialButton // Kept it uniform with your view variables
+    private lateinit var btnBookNow: MaterialButton
 
     private var currentActiveId: Int? = null
     private var activeAppointmentJson: JSONObject? = null
-    private val apiBase = "http://192.168.1.9:8080/api/appointments"
+    private var hasActiveTicket: Boolean = false
+    private val apiBase = "http://192.168.1.2:8080/api/appointments"
+
+    // --- AUTOMATIC RUNTIME REFRESH MODULE CONTROLS ---
+    private val refreshHandler = Handler(Looper.getMainLooper())
+    private val refreshIntervalMs: Long = 5000L // 5 Seconds background sync cadence loop
+
+    private val autoRefreshTask = object : Runnable {
+        override fun run() {
+            Log.d("PATUPI_SYNC", "Executing background operation queue sync check...")
+            fetchDataSilently()
+            refreshHandler.postDelayed(this, refreshIntervalMs)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,7 +72,17 @@ class DashboardActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        // Force an initial synchronous load on screen entrance
         fetchData()
+        // Begin the background execution loop pipeline immediately
+        refreshHandler.postDelayed(autoRefreshTask, refreshIntervalMs)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        // CRITICAL FIX: Kill active thread hooks to completely prevent ghost leaks when exiting dashboard layout scopes
+        refreshHandler.removeCallbacks(autoRefreshTask)
+        Log.d("PATUPI_SYNC", "Suspended background execution tasks.")
     }
 
     private fun initializeViews() {
@@ -74,7 +98,7 @@ class DashboardActivity : AppCompatActivity() {
         historyContainer = findViewById(R.id.historyContainer)
         cardActiveTicket = findViewById(R.id.cardActiveTicket)
         btnCancelTicket = findViewById(R.id.btnCancelTicket)
-        btnBookNow = findViewById(R.id.btnBookNow) // Safely bound your XML button
+        btnBookNow = findViewById(R.id.btnBookNow)
     }
 
     private fun setupListeners() {
@@ -90,9 +114,22 @@ class DashboardActivity : AppCompatActivity() {
             startActivity(Intent(this, ProfileActivity::class.java))
         }
 
-        // Redirects to the step-by-step booking activity (Back navigation is implicit)
         btnBookNow.setOnClickListener {
             startActivity(Intent(this, BookingActivity::class.java))
+        }
+    }
+
+    private fun setBookingButtonState(isLocked: Boolean) {
+        if (isLocked) {
+            btnBookNow.isEnabled = false
+            btnBookNow.text = "Booking Locked"
+            btnBookNow.backgroundTintList = android.content.res.ColorStateList.valueOf("#555555".toColorInt())
+            btnBookNow.setTextColor("#888888".toColorInt())
+        } else {
+            btnBookNow.isEnabled = true
+            btnBookNow.text = "Book Now"
+            btnBookNow.backgroundTintList = android.content.res.ColorStateList.valueOf("#D4AF37".toColorInt())
+            btnBookNow.setTextColor(Color.BLACK)
         }
     }
 
@@ -116,35 +153,72 @@ class DashboardActivity : AppCompatActivity() {
     }
 
     private fun fetchData() {
-        val sharedPref = getSharedPreferences("PatupiPrefs", Context.MODE_PRIVATE)
-        val userJson = sharedPref.getString("user", null) ?: return
-        val userObj = JSONObject(userJson)
+        processDashboardSync(showErrorsOnUi = true)
+    }
+
+    private fun fetchDataSilently() {
+        processDashboardSync(showErrorsOnUi = false)
+    }
+
+    private fun processDashboardSync(showErrorsOnUi: Boolean) {
+        val userObj = SessionManager.currentUserJson
+        if (userObj == null) {
+            Log.e("PATUPI", "Fetch Failed: No user session found in memory.")
+            if (showErrorsOnUi) redirectToLogin()
+            return
+        }
+
         val userId = userObj.optInt("userId", userObj.optInt("id", 1))
+        val url = "$apiBase/customer/$userId"
 
-        val request = JsonArrayRequest(Request.Method.GET, "$apiBase/customer/$userId", null,
+        val request = JsonArrayRequest(Request.Method.GET, url, null,
             { response ->
-                historyContainer.removeAllViews()
                 var activeFound = false
-
                 val appointments = mutableListOf<JSONObject>()
-                for (i in 0 until response.length()) appointments.add(response.getJSONObject(i))
+
+                for (i in 0 until response.length()) {
+                    appointments.add(response.getJSONObject(i))
+                }
                 appointments.sortByDescending { it.optString("scheduledAt") }
 
-                appointments.forEachIndexed { idx, appt ->
+                val historicalItems = appointments.filter {
+                    it.getString("status").uppercase(Locale.getDefault()) in listOf("COMPLETED", "CANCELLED")
+                }
+
+                if (historyContainer.childCount != historicalItems.size) {
+                    historyContainer.removeAllViews()
+                    historicalItems.forEachIndexed { idx, appt ->
+                        val desc = appt.optString("serviceName", "Grooming")
+                        val date = appt.optString("scheduledAt")
+                        val status = appt.getString("status").uppercase(Locale.getDefault())
+                        addHistoryRow(date, desc, status, idx)
+                    }
+                }
+
+                appointments.forEach { appt ->
                     val status = appt.getString("status").uppercase(Locale.getDefault())
                     val desc = appt.optString("serviceName", "Grooming")
                     val date = appt.optString("scheduledAt")
 
-                    if (!activeFound && status in listOf("CONFIRMED", "PENDING", "DRAFT")) {
+                    if (!activeFound && status in listOf("CONFIRMED", "PENDING", "DRAFT", "IN_PROGRESS")) {
                         updateActiveUI(appt, status, desc, date)
                         activeFound = true
-                    } else if (status in listOf("COMPLETED", "CANCELLED")) {
-                        addHistoryRow(date, desc, status, idx)
                     }
                 }
-                if (!activeFound) resetActiveUI()
+
+                hasActiveTicket = activeFound
+                setBookingButtonState(hasActiveTicket)
+
+                if (!activeFound) {
+                    resetActiveUI()
+                }
             },
-            { Log.e("PATUPI", "Fetch Failed") }
+            { error ->
+                Log.e("PATUPI", "Sync Lifecycle Pipeline Hit Error: ${error.message}")
+                if (showErrorsOnUi) {
+                    Toast.makeText(this, "Network synchronization dropped.", Toast.LENGTH_SHORT).show()
+                }
+            }
         )
         Volley.newRequestQueue(this).add(request)
     }
@@ -162,12 +236,19 @@ class DashboardActivity : AppCompatActivity() {
         tvTapHint.visibility = View.VISIBLE
 
         tvActiveStatus.text = status
-        if (status == "CONFIRMED") {
-            tvActiveStatus.setBackgroundResource(R.drawable.status_pill_confirmed)
-            tvActiveStatus.setTextColor("#4CAF50".toColorInt())
-        } else {
-            tvActiveStatus.setBackgroundResource(R.drawable.status_pill_pending)
-            tvActiveStatus.setTextColor(Color.BLACK)
+        when (status) {
+            "CONFIRMED" -> {
+                tvActiveStatus.setBackgroundResource(R.drawable.status_pill_confirmed)
+                tvActiveStatus.setTextColor("#4CAF50".toColorInt())
+            }
+            "IN_PROGRESS" -> {
+                tvActiveStatus.setBackgroundResource(R.drawable.status_pill_confirmed)
+                tvActiveStatus.setTextColor("#2196F3".toColorInt())
+            }
+            else -> {
+                tvActiveStatus.setBackgroundResource(R.drawable.status_pill_pending)
+                tvActiveStatus.setTextColor(Color.BLACK)
+            }
         }
     }
 
@@ -201,20 +282,19 @@ class DashboardActivity : AppCompatActivity() {
     }
 
     private fun handleCancel(id: Int) {
-        val sharedPref = getSharedPreferences("PatupiPrefs", Context.MODE_PRIVATE)
-        val userJson = sharedPref.getString("user", null) ?: return
-        val userObj = JSONObject(userJson)
+        val userObj = SessionManager.currentUserJson ?: return
         val userId = userObj.optInt("userId", userObj.optInt("id", 1))
 
         AlertDialog.Builder(this)
             .setTitle("Cancel Appointment")
             .setMessage("Are you sure you want to cancel this booking?")
-            .setPositiveButton("Yes") { _, _ ->
+            .setPositiveButton("Yes") { dialog, _ ->
                 val url = "$apiBase/$id/cancel?customerId=$userId"
 
                 val req = JsonObjectRequest(Request.Method.PUT, url, null,
                     { _ ->
                         Toast.makeText(this, "Appointment Cancelled", Toast.LENGTH_SHORT).show()
+                        dialog.dismiss()
                         fetchData()
                     },
                     { error ->
@@ -238,7 +318,7 @@ class DashboardActivity : AppCompatActivity() {
         row.addView(createCell(formatDate(rawDate, "MM/dd/yy"), 1.2f))
         row.addView(createCell(formatDate(rawDate, "hh:mm a"), 1.2f))
         row.addView(createCell(desc, 2f))
-        row.addView(createCell("—", 0.8f, Gravity.CENTER))
+        // REMOVED EXTRA BLANK CELL RATING MISALIGNMENT TO MATCH xml WEIGHT CONSTANTS
         row.addView(createCell(status, 1f, Gravity.END).apply {
             setTextColor(if (status == "CANCELLED") "#FF5252".toColorInt() else "#d4af37".toColorInt())
             setTypeface(null, android.graphics.Typeface.BOLD)
@@ -266,5 +346,12 @@ class DashboardActivity : AppCompatActivity() {
             val formatter = SimpleDateFormat(pattern, Locale.getDefault())
             formatter.format(parser.parse(iso)!!)
         } catch (_: Exception) { "—" }
+    }
+
+    private fun redirectToLogin() {
+        val intent = Intent(this, LoginActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+        finish()
     }
 }

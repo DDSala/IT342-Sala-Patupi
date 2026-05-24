@@ -207,3 +207,34 @@
     align-items: center;
     justify-content: center;
 }
+
+/* Status Badge Chip Base Layout Styles */
+.status-badge {
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: capitalize;
+    display: inline-block;
+}
+
+/* Green design for Active or Available */
+.status-active {
+    background-color: rgba(46, 204, 113, 0.15);
+    color: #2ecc71;
+    border: 1px solid rgba(46, 204, 113, 0.3);
+}
+
+/* Yellow/Orange design for Busy */
+.status-busy {
+    background-color: rgba(241, 196, 15, 0.15);
+    color: #f1c40f;
+    border: 1px solid rgba(241, 196, 15, 0.3);
+}
+
+/* Crimson/Muted Grey design for Offline/Unavailable */
+.status-unavailable {
+    background-color: rgba(231, 76, 60, 0.12);
+    color: #e74c3c;
+    border: 1px solid rgba(231, 76, 60, 0.25);
+}

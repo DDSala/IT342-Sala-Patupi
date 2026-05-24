@@ -15,9 +15,12 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
     @Query("SELECT a FROM Appointment a WHERE DATE(a.scheduled_at) = :date AND a.status = 'CONFIRMED'")
     List<Appointment> findBookedSlotsByDate(@Param("date") String date);
 
-
     @Query("SELECT a FROM Appointment a WHERE a.user.userId = :customerId ORDER BY a.scheduled_at DESC")
     List<Appointment> findByCustomerId(@Param("customerId") Long customerId);
+
+    // --- NEW: FETCH APPOINTMENTS ASSIGNED TO SPECIFIC BARBER ---
+    @Query("SELECT a FROM Appointment a WHERE a.barberId = :barberId AND a.status IN ('CONFIRMED', 'IN_PROGRESS') ORDER BY a.scheduled_at ASC")
+    List<Appointment> findActiveByBarberId(@Param("barberId") Long barberId);
 
     @Query("SELECT COUNT(a) > 0 FROM Appointment a WHERE a.user.userId = :customerId AND a.status NOT IN ('FINISHED', 'CANCELLED')")
     boolean hasActiveAppointment(@Param("customerId") Long customerId);

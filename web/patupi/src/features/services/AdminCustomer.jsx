@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
-import { Scissors, LogOut, Users, ClipboardList, History, Edit2, Ban, AlertCircle, Trash2 } from 'lucide-react';
+import { Scissors, LogOut, Users, ClipboardList, History, AlertCircle, Trash2 } from 'lucide-react';
 import "./admin-customer.css";
 
 const AdminCustomer = () => {
@@ -10,6 +10,10 @@ const AdminCustomer = () => {
     const [customers, setCustomers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [showLogoutModal, setShowLogoutModal] = useState(false);
+
+    // Premium overlay state match tracking properties
+    const [deleteModal, setDeleteModal] = useState({ isOpen: false, targetId: null });
+    const [isDeleting, setIsDeleting] = useState(false);
 
     useEffect(() => {
         const loggedInUser = sessionStorage.getItem('user');
@@ -25,12 +29,18 @@ const AdminCustomer = () => {
             return;
         }
         fetchCustomers();
+
+        // Background poller task runner matching your barbers management frequency
+        const pollerInterval = setInterval(() => {
+            fetchCustomers();
+        }, 4000);
+
+        return () => clearInterval(pollerInterval);
     }, [navigate]);
 
     const fetchCustomers = async () => {
         try {
             const res = await axios.get('http://localhost:8080/api/users/all');
-            
             setCustomers(res.data.filter(user => Number(user.roleId) === 3));
             setLoading(false);
         } catch (err) {
@@ -39,17 +49,20 @@ const AdminCustomer = () => {
         }
     };
 
-    
-    const handleDelete = async (id) => {
-        if (window.confirm("Are you sure you want to permanently delete this customer account?")) {
-            try {
-                await axios.delete(`http://localhost:8080/api/users/${id}`);
-                
-                fetchCustomers();
-            } catch (err) {
-                console.error("Delete failed:", err);
-                alert("Failed to delete customer. They may have active appointments.");
-            }
+    const handleDeleteConfirm = async () => {
+        const { targetId } = deleteModal;
+        setIsDeleting(true);
+        try {
+            await axios.delete(`http://localhost:8080/api/users/${targetId}`);
+            
+            // Instantly drop row entity out of live view collection tracking properties
+            setCustomers(prev => prev.filter(c => c.userId !== targetId));
+            setDeleteModal({ isOpen: false, targetId: null });
+        } catch (err) {
+            console.error("Delete failed:", err);
+            alert("Failed to delete customer. They may have active appointments.");
+        } finally {
+            setIsDeleting(false);
         }
     };
 
@@ -112,40 +125,34 @@ const AdminCustomer = () => {
                             <tr>
                                 <th>CUSTOMER NAME</th>
                                 <th>EMAIL ADDRESS</th>
-                                <th>STATUS</th>
                                 <th>ACTIONS</th>
                             </tr>
                         </thead>
                         <tbody>
                             {loading ? (
-                                <tr><td colSpan="4" className="empty-row">Loading...</td></tr>
+                                <tr><td colSpan="3" className="empty-row">Loading...</td></tr>
                             ) : customers.length > 0 ? (
-                                customers.map((c) => (
-                                    <tr key={c.userId}>
-                                        <td><span className="cust-name">{c.fullName}</span></td>
-                                        <td className="time-highlight">{c.email}</td>
-                                        <td>
-                                            <div className="dot-status confirmed">
-                                                <span className="status-dot-green"></span> Active
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div className="action-buttons-flex">
-                                                <Edit2 size={16} className="icon-btn-gray" title="Edit Customer" />
-                                                {/* TRASH ICON WITH DELETE LOGIC */}
-                                                <Trash2 
-                                                    size={16} 
-                                                    className="icon-btn-red" 
-                                                    style={{ cursor: 'pointer' }}
-                                                    onClick={() => handleDelete(c.userId)}
-                                                    title="Delete Customer"
-                                                />
-                                            </div>
-                                        </td>
-                                    </tr>
-                                ))
+                                customers.map((c) => {
+                                    return (
+                                        <tr key={c.userId}>
+                                            <td><span className="cust-name">{c.fullName}</span></td>
+                                            <td>{c.email}</td>
+                                            <td>
+                                                <div className="action-buttons-flex" style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+                                                    <button 
+                                                        className="btn-delete-admin"
+                                                        onClick={() => setDeleteModal({ isOpen: true, targetId: c.userId })}
+                                                        title="Delete Customer"
+                                                    >
+                                                        <Trash2 size={16} />
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    );
+                                })
                             ) : (
-                                <tr><td colSpan="4" className="empty-row">No customers found.</td></tr>
+                                <tr><td colSpan="3" className="empty-row">No customers found.</td></tr>
                             )}
                         </tbody>
                     </table>
@@ -167,6 +174,36 @@ const AdminCustomer = () => {
                             </button>
                             <button className="btn-modal-premium" onClick={() => { sessionStorage.clear(); navigate('/login'); }}>
                                 Sign Out
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* PREMIUM DELETE CONFIRMATION MODAL */}
+            {deleteModal.isOpen && (
+                <div className="modern-modal-overlay">
+                    <div className="modern-modal-container">
+                        <div className="modal-icon-container glow-warning">
+                            <AlertCircle color="#EF4444" size={32} />
+                        </div>
+                        <h3>Remove Customer Account?</h3>
+                        <p>This action is permanent and will remove them from the active record directory.</p>
+                        <div className="modal-action-row">
+                            <button 
+                                className="btn-modal-outline" 
+                                onClick={() => !isDeleting && setDeleteModal({ isOpen: false, targetId: null })}
+                                disabled={isDeleting}
+                            >
+                                Cancel
+                            </button>
+                            <button 
+                                className="btn-modal-premium" 
+                                style={{ background: "#EF4444" }}
+                                onClick={handleDeleteConfirm}
+                                disabled={isDeleting}
+                            >
+                                {isDeleting ? "Removing..." : "Remove"}
                             </button>
                         </div>
                     </div>

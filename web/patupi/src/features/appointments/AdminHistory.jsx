@@ -8,23 +8,56 @@ const AdminHistory = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const [history, setHistory] = useState([]);
+    const [services, setServices] = useState([]); // Stores the master list of services to resolve prices
     const [searchTerm, setSearchTerm] = useState('');
     const [showLogoutModal, setShowLogoutModal] = useState(false);
     const [loading, setLoading] = useState(true);
 
+    // UNIFIED REAL-TIME AUTO-REFRESH POLLING ENGINE
     useEffect(() => {
-        fetchHistory();
+        // Fetch background service definitions once on mount
+        const fetchServices = async () => {
+            try {
+                const res = await axios.get('http://localhost:8080/api/services');
+                if (res.data) setServices(res.data);
+            } catch (err) {
+                console.error("Services Blueprint Fetch Error:", err);
+            }
+        };
+
+        const fetchHistory = async (isInitialLoad = false) => {
+            if (isInitialLoad) setLoading(true);
+            try {
+                const res = await axios.get('http://localhost:8080/api/appointments/all');
+                setHistory(res.data);
+            } catch (err) { 
+                console.error("History Polling Fetch Error:", err); 
+            } finally {
+                if (isInitialLoad) setLoading(false);
+            }
+        };
+
+        // Execution Core
+        fetchServices();
+        fetchHistory(true);
+
+        // Poll endpoints seamlessly every 5 seconds
+        const pollInterval = setInterval(() => {
+            fetchHistory(false);
+        }, 5000);
+
+        // Memory cleanup to prevent background leaks
+        return () => clearInterval(pollInterval);
     }, []);
 
-    const fetchHistory = async () => {
-        try {
-            const res = await axios.get('http://localhost:8080/api/appointments/all');
-            setHistory(res.data);
-            setLoading(false);
-        } catch (err) { 
-            console.error("History Fetch Error:", err); 
-            setLoading(false);
-        }
+    // HELPER: Matches appointment's service string to database pricing
+    const getServicePrice = (serviceName) => {
+        if (!serviceName) return 0;
+        const matchedService = services.find(
+            s => s.name?.toLowerCase().trim() === serviceName.toLowerCase().trim()
+        );
+        // Extracts the mapped Jackson property "base_price" safely
+        return matchedService ? matchedService.base_price : 0;
     };
 
     // FILTER & SORT LOGIC
@@ -114,51 +147,52 @@ const AdminHistory = () => {
                                 <th>CUSTOMER</th>
                                 <th>BARBER</th>
                                 <th>SERVICE</th>
-                                <th>PAID AMOUNT</th>
-                                <th>RATING</th>
+                                <th>PRICE</th>
                                 <th>STATUS</th>
                                 <th>DATE & TIME</th>
                             </tr>
                         </thead>
                         <tbody>
                             {loading ? (
-                                <tr><td colSpan="7" className="empty-row">Loading archive...</td></tr>
+                                <tr><td colSpan="6" className="empty-row">Loading archive...</td></tr>
                             ) : filtered.length > 0 ? (
-                                filtered.map((h) => (
-                                    <tr key={h.appointmentId}>
-                                        <td><span className="cust-name">{h.customerName}</span></td>
-                                        <td>{h.barberName || "—"}</td>
-                                        <td className="service-gold">{h.service}</td>
-                                        <td>₱{parseFloat(h.totalAmount || 0).toFixed(2)}</td>
-                                        <td>{h.rating ? `${h.rating} ★` : "—"}</td>
-                                        <td>
-                                            <span className={`status-badge ${h.status?.toLowerCase()}`}>
-                                                {h.status}
-                                            </span>
-                                        </td>
-                                        {/* REWRITTEN DATE COLUMN */}
-                                        <td>
-                                            <div className="time-stack">
-                                                <div className="date-sub">
-                                                    {new Date(h.scheduledAt).toLocaleDateString('en-US', { 
-                                                        month: 'short', 
-                                                        day: 'numeric', 
-                                                        year: 'numeric' 
-                                                    })}
+                                filtered.map((h) => {
+                                    const calculatedPrice = getServicePrice(h.service);
+                                    return (
+                                        <tr key={h.appointmentId}>
+                                            <td><span className="cust-name">{h.customerName}</span></td>
+                                            <td>{h.barberName || "—"}</td>
+                                            <td className="service-gold">{h.service}</td>
+                                            {/* DYNAMIC PRICE LOOKUP MATCHING BACKEND DEFINED BASE PRICE */}
+                                            <td>₱{parseFloat(calculatedPrice || h.totalAmount || 0).toFixed(2)}</td>
+                                            <td>
+                                                <span className={`status-badge ${h.status?.toLowerCase()}`}>
+                                                    {h.status}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <div className="time-stack">
+                                                    <div className="date-sub">
+                                                        {new Date(h.scheduledAt).toLocaleDateString('en-US', { 
+                                                            month: 'short', 
+                                                            day: 'numeric', 
+                                                            year: 'numeric' 
+                                                        })}
+                                                    </div>
+                                                    <div className="time-highlight">
+                                                        {new Date(h.scheduledAt).toLocaleTimeString([], { 
+                                                            hour: '2-digit', 
+                                                            minute: '2-digit' 
+                                                        })}
+                                                    </div>
                                                 </div>
-                                                <div className="time-highlight">
-                                                    {new Date(h.scheduledAt).toLocaleTimeString([], { 
-                                                        hour: '2-digit', 
-                                                        minute: '2-digit' 
-                                                    })}
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                ))
+                                            </td>
+                                        </tr>
+                                    );
+                                })
                             ) : (
                                 <tr>
-                                    <td colSpan="7" className="empty-row">No history records found.</td>
+                                    <td colSpan="6" className="empty-row">No history records found.</td>
                                 </tr>
                             )}
                         </tbody>

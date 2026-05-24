@@ -219,7 +219,6 @@
                 <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1.2" android:text="DATE" android:textColor="#4DFFFFFF" android:textSize="10sp"/>
                 <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1.2" android:text="TIME" android:textColor="#4DFFFFFF" android:textSize="10sp"/>
                 <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="2" android:text="SERVICE" android:textColor="#4DFFFFFF" android:textSize="10sp"/>
-                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="0.8" android:text="RATING" android:textColor="#4DFFFFFF" android:textSize="10sp" android:gravity="center"/>
                 <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="STATUS" android:textColor="#4DFFFFFF" android:textSize="10sp" android:gravity="end"/>
             </LinearLayout>
 

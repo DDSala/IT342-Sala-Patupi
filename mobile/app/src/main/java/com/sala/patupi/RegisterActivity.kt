@@ -27,7 +27,7 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var btnRegister: Button
     private lateinit var tvLoginNow: TextView
 
-    private val url = "http://192.168.1.4:8080/api/auth/register"
+    private val url = "http://192.168.1.2:8080/api/auth/register"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

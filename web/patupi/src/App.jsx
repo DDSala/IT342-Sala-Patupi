@@ -12,6 +12,7 @@ import AdminHistory from './features/appointments/AdminHistory';
 import AdminCustomer from './features/services/AdminCustomer'; 
 import Barbers from './features/services/Barbers';
 
+
 import ProtectedRoute from './common/components/ProtectedRoute';
 function App() {
   useEffect(() => {
@@ -66,6 +67,8 @@ function App() {
             <Profile />
           </ProtectedRoute>
         } /> 
+
+
 
         <Route path="/" element={<Navigate to="/login" replace />} />
         <Route path="*" element={<Navigate to="/login" replace />} />

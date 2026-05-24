@@ -13,7 +13,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/appointments")
-@CrossOrigin(origins = {"http://localhost:5173", "http://192.168.1.9:8080", "http://192.168.1.9"})
+@CrossOrigin(origins = {"http://localhost:5173", "http://192.168.1.2:8080", "http://192.168.1.2"})
 public class AppointmentController {
 
     @Autowired
@@ -138,4 +138,46 @@ public ResponseEntity<?> cancelAppointment(@PathVariable Long id, @RequestParam 
         return ResponseEntity.ok(Map.of("message", "Cancelled and notification sent"));
     }).orElse(ResponseEntity.notFound().build());
 }
+
+
+// --- NEW endpoints FOR BARBER WORKFLOW ---
+
+@GetMapping("/barber/{barberId}")
+    public ResponseEntity<?> getBarberQueue(@PathVariable Long barberId) {
+        try {
+            return ResponseEntity.ok(appointmentRepository.findActiveByBarberId(barberId)
+                .stream()
+                .map(appointment -> {
+                    java.util.Map<String, Object> map = new java.util.HashMap<>();
+                    map.put("id", appointment.getId()); // Added standard id fallback
+                    map.put("appointmentId", appointment.getId());
+                    map.put("status", appointment.getStatus());
+                    map.put("scheduledAt", appointment.getScheduled_at());
+                    map.put("description", appointment.getDescription());
+                    map.put("customerName", appointment.getCustomerName());
+                    map.put("totalAmount", appointment.getTotal_amount());
+                    
+                    // 🌟 THE LIFESAVING FIX: Put the service ID into the JSON response stream map!
+                    map.put("serviceId", appointment.getService_id());
+                    
+                    return map;
+                })
+                .collect(java.util.stream.Collectors.toList()));
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(java.util.Map.of("error", e.getMessage()));
+        }
+    }
+
+    @PutMapping("/{id}/status")
+    public ResponseEntity<?> updateAppointmentStatus(@PathVariable Long id, @RequestBody java.util.Map<String, String> payload) {
+        return appointmentRepository.findById(id).map(appointment -> {
+            String newStatus = payload.get("status").toUpperCase();
+            if (newStatus.equals("IN_PROGRESS") || newStatus.equals("COMPLETED")) {
+                appointment.setStatus(newStatus);
+                appointmentRepository.save(appointment);
+                return ResponseEntity.ok(java.util.Map.of("message", "Status updated to " + newStatus));
+            }
+            return ResponseEntity.badRequest().body(java.util.Map.of("error", "Invalid status modification value"));
+        }).orElse(ResponseEntity.notFound().build());
+    }
 }

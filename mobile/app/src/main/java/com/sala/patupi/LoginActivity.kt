@@ -1,6 +1,5 @@
 package com.sala.patupi
 
-import android.content.Context
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
@@ -27,14 +26,15 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var tvSignUp: TextView
 
     // Ensure this IP matches your current machine IP (192.168.1.9)
-    private val loginUrl = "http://192.168.1.9:8080/api/auth/login"
+    private val loginUrl = "http://192.168.1.2:8080/api/auth/login"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // --- AUTO-LOGIN CHECK ---
-        val sharedPref = getSharedPreferences("PatupiPrefs", Context.MODE_PRIVATE)
-        if (sharedPref.contains("user")) {
+        // --- SPOT 1: NEW IN-MEMORY AUTO-LOGIN CHECK ---
+        // SharedPreferences check completely removed. Now it checks RAM.
+        // When the app closes, this automatically clears.
+        if (SessionManager.isLoggedIn()) {
             startActivity(Intent(this, DashboardActivity::class.java))
             finish()
             return
@@ -85,7 +85,7 @@ class LoginActivity : AppCompatActivity() {
 
         val request = JsonObjectRequest(Request.Method.POST, loginUrl, loginData,
             { response ->
-                // IMPORTANT: Save the user data before moving to the next screen
+                // --- SPOT 2: SAVE TO RAM INSTEAD OF DISK ---
                 saveUserSession(response)
                 showSuccessDialog(response)
             },
@@ -102,24 +102,39 @@ class LoginActivity : AppCompatActivity() {
         Volley.newRequestQueue(this).add(request)
     }
 
+    // --- SPOT 3: REWRITTEN TO USE SESSION MANAGER ---
     private fun saveUserSession(response: JSONObject) {
-        val sharedPref = getSharedPreferences("PatupiPrefs", Context.MODE_PRIVATE)
-        with(sharedPref.edit()) {
-            // We store the whole JSON string so ProfileActivity can parse it
-            putString("user", response.toString())
-            apply()
-        }
-        Log.d("PATUPI_DEBUG", "Session saved successfully")
+        // Stores the incoming full user data response block safely inside your RAM container
+        SessionManager.currentUserJson = response
+        SessionManager.authToken = response.optString("token", "dummy_token")
+        SessionManager.userEmail = response.optString("email", "")
+
+        Log.d("PATUPI_DEBUG", "Session saved to temporary memory (RAM)")
     }
 
     private fun showSuccessDialog(response: JSONObject) {
         val name = response.optString("fullName", "User")
+        // Handle fallback parsing rules standard inside your project mapping structure
+        val roleId = response.optInt("roleId", 3) 
+
+        if (roleId == 1) {
+            MaterialAlertDialogBuilder(this)
+                .setTitle("Access Restricted")
+                .setMessage("Admin Page only accessible through web browser.")
+                .setPositiveButton("Understood", null)
+                .show()
+            SessionManager.logout() // Flush temporary cache memory container instantly
+            return
+        }
 
         MaterialAlertDialogBuilder(this)
             .setTitle("Login Successful")
             .setMessage("Welcome back to Patupi, $name!")
             .setPositiveButton("Let's Go") { _, _ ->
-                val intent = Intent(this, DashboardActivity::class.java)
+                val intent = when (roleId) {
+                    2 -> Intent(this, BarberPageActivity::class.java)
+                    else -> Intent(this, DashboardActivity::class.java)
+                }
                 startActivity(intent)
                 finish()
             }

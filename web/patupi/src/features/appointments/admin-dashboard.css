@@ -353,23 +353,6 @@
   to { transform: translateY(0); }
 }
 
-.btn-delete-admin {
-  background: transparent;
-  color: #ff4d4d;
-  border: 1px solid #ff4d4d33;
-  padding: 6px 12px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 0.75rem;
-  font-weight: 600;
-  transition: all 0.2s;
-}
-
-.btn-delete-admin:hover {
-  background: #ff4d4d;
-  color: white;
-}
-
 .time-stack {
   font-size: 0.85rem;
   line-height: 1.4;
@@ -920,4 +903,72 @@
     color: #888;
     font-style: italic;
     margin-top: 5px;
+}
+
+/* --- Admin Specific Overrides for Toasts --- */
+.admin-toast {
+  z-index: 9999;
+  position: fixed;
+  top: 24px;
+  right: 24px;
+}
+
+.toast-book-border {
+  border-left: 4px solid #D4AF37 !important; /* Premium Patupi Gold */
+}
+
+.toast-cancel-border {
+  border-left: 4px solid #ff5252 !important; /* Dropout Warning Red */
+}
+
+/* --- Admin Panel Bell Micro-indicators --- */
+.pulse-bell {
+  animation: bellShaker 0.5s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+@keyframes bellShaker {
+  10%, 90% { transform: translate3d(-1px, 0, 0) rotate(-2deg); }
+  20%, 80% { transform: translate3d(2px, 0, 0) rotate(4deg); }
+  30%, 50%, 70% { transform: translate3d(-3px, 0, 0) rotate(-6deg); }
+  40%, 60% { transform: translate3d(3px, 0, 0) rotate(6deg); }
+}
+
+/* --- History Drawer Specific Inner Cards --- */
+.drawer-card-book {
+  border-left: 3px solid rgba(212, 175, 55, 0.4);
+  background: rgba(212, 175, 55, 0.02);
+}
+
+.drawer-card-cancel {
+  border-left: 3px solid rgba(255, 82, 82, 0.4);
+  background: rgba(255, 82, 82, 0.02);
+}
+
+.drawer-card-meta-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.notif-card-book h5 {
+  color: #f3f3f3 !important;
+}
+
+.notif-card-cancel h5 {
+  color: #ff7878 !important;
+}
+
+.btn-delete-admin {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  padding: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-delete-admin:hover {
+  background: rgba(239, 68, 68, 0.2);
 }

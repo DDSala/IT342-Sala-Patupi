@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="#131317"
+    app:cardCornerRadius="24dp"
+    app:strokeColor="#22222B"
+    app:strokeWidth="1dp"
+    android:layout_margin="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Appointment Sheet"
+            android:textColor="#D4AF37"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.05" />
+
+        <TextView
+            android:id="@+id/modalBarberCustomerName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Customer Name"
+            android:textColor="#F3F3F7"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:letterSpacing="-0.01" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="16dp"
+            android:padding="16dp"
+            android:background="#1A1A22">
+
+            <TextView
+                android:id="@+id/modalBarberDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date &amp; Description"
+                android:textColor="#A2A2A9"
+                android:textSize="14sp"
+                android:lineSpacingExtra="4dp" />
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnStartAppointment"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_marginTop="20dp"
+            android:text="Start Session"
+            android:textColor="#000000"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:backgroundTint="#D4AF37"
+            app:cornerRadius="14dp"
+            app:rippleColor="#40000000" />
+
+        <RelativeLayout
+            android:id="@+id/layoutSwipeTrack"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="20dp"
+            android:background="#1A1A22"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/tvSwipeHintText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SLIDE RIGHT TO END SESSION"
+                android:textColor="#4E4E54"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.02"
+                android:layout_centerInParent="true" />
+
+            <View
+                android:id="@+id/swipeProgressFiller"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:background="#243A2B"
+                android:layout_alignParentStart="true" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/swipeThumb"
+                android:layout_width="72dp"
+                android:layout_height="match_parent"
+                android:layout_margin="3dp"
+                app:cardBackgroundColor="#34C759"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="2dp"
+                android:layout_alignParentStart="true">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:src="@android:drawable/ic_media_play"
+                    app:tint="#FFFFFF" />
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/tvSwipeThumbText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Active"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="16dp"
+                android:visibility="gone"/>
+        </RelativeLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnDismissBarberModal"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="12dp"
+            android:text="Dismiss"
+            android:textColor="#636366"
+            app:cornerRadius="12dp" />
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

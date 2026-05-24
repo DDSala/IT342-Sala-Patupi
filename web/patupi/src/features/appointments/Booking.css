@@ -77,17 +77,20 @@
 /* --- Main Content Area --- */
 .wizard-content {
     flex: 1;
-    padding: 40px;
+    padding: 40px 40px 40px 40px; 
     background: linear-gradient(135deg, #121212 0%, #1a1a1a 100%);
-    overflow-y: hidden; 
+    overflow: hidden; 
     display: flex;
     flex-direction: column;
+    box-sizing: border-box;
 }
 
 .step-container {
     display: flex;
     flex-direction: column;
+    flex: 1;
     height: 100%;
+    box-sizing: border-box;
 }
 
 .gold-text {
@@ -220,11 +223,12 @@
 
 /* --- Buttons --- */
 .button-group {
-    margin-top: auto;
+    margin-top: 20px; 
     display: flex;
     justify-content: space-between;
-    padding-top: 20px;
+    padding-top: 16px;
     border-top: 1px solid rgba(255, 255, 255, 0.05);
+    background: transparent;
 }
 
 .gold-button {

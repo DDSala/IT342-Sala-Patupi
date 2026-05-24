@@ -13,7 +13,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/users")
-@CrossOrigin(origins = {"http://localhost:5173", "http://192.168.1.9:8080", "http://192.168.1.9"})
+@CrossOrigin(origins = {"http://localhost:5173", "http://192.168.1.2:8080", "http://192.168.1.2"})
 public class UserController {
 
     @Autowired
@@ -74,6 +74,7 @@ public class UserController {
             return ResponseEntity.status(500).body("Error: " + e.getMessage());
         }
     }
+    
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable Long id) {
